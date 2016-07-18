@@ -1,455 +1,366 @@
 -- *Slide* --
-### Welcome to the Introduction to Spartan HPC Course
-* Lev Lafayette has worked as an HPC sysadmin for since 2007, first at the Victorian Partnership for Advanced Computing, now at the University of Melbourne. Has worked in IT since 1999.
-* Has taught approximately 150 day-long classes at 17 different research institutions across Australia since 2012.
-* Collects degrees for fun. Profit is accidential. Doesn't actually have a computer science degree - but does have a postgraduate degee in Adult and Tertiary Education.
-* Stalk me at: http://levlafayette.com/ or https://www.linkedin.com/in/levlafayette
--- *Slide End* --
-
--- *Slide* --
 ### Goals for today
-* Part 1: Learning about supercomputers and Spartan.
-* Part 2: Logging on an exploring the Linux Environment.
-* Part 3: Learning about Environment Modules and the SLURM job submission system.
-* Part 4: Submitting test jobs.
-* Part 5: TORQUE/Moab and SLURM Command Summaries
-* Some live notes for the day will be on https://etherpad.openstack.org/p/SpartanIntro
-* A copy of the slides and same code is available at: https://github.com/UoM-ResPlat-DevOps/SpartanIntro
+* Part 1: Advanced Linux Commands.
+* Part 2: Regular Expressions.
+* Part 3: Shells In General, Bash in Particular.
+* Part 4: Variables, Loops, Conditionals, and Functions.
+* Part 5: Shell Scripts in PBS and SLURM.
+* A copy of the slides and same code is available at: https://github.com/UoM-ResPlat-DevOps/HPCshells
 -- *Slide End* --
 
 -- *Slide* --
-### Part 1: About Supercomputers and High Performance Computers
-* "Supercomputer" means any single computer system that has exceptional processing power for its time. 
-* One popular metric (LINPACK) is the number of floating­ point operations per second (FLOPS) such a system can carry out (http://top500.org). HPC Challenge is a broader, more interesting metric.
-* High Performance Computer (HPC) is any computer system whose architecture allows for above average performance.
+### Archiving and Compressing Files
+* Copy the file from /usr/local/common/OpenMPI/class.tar.gz to the home directory.
+* The double-barelled suffix, .tar.gz indicates that it is an archive ("tape archive"!) and compressed (with the gzip application). Such a file (often appearing as *.tgz) is often referred to as a "tarball".
+* The type of a file can often be determined by the file command: `file class.tar.gz`
+* To review the contents of a tarball (check for tarbombs!): `tar tf class.tar.gz`
+* T recover from a tarbomb: `tar tf tarbomb.tar | xargs rm -rf`
+* To extract (and compare value of compression): `tar xvf class.tar.gz`
+* To create a tarball: tar cvfz class.tar.gz directory/
 -- *Slide End* --
 
 -- *Slide* --
-### Part 1: Cluster Computing and Scientific Computing
-* Clustered computing is when two or more computers serve a single resource. This improves 
-performance and provides redundancy in case of failure system. Typically commodity systems with a high-speed local network.
-* Scientific (or research) computing is the software applications used by the scientific community to aid research. Does not necessarily equate with high performance computing, or the use of clusters.­ It is whatever scientists use and do.
-* Note issues such as reproducibility, access to datasets and environments etc.
+### Archiving and Compressing Files cont ...
+* Another common compression algorithm that Linux users are likely to encounter with regularity is bzip2.
+* Efficient in size, slower in decompression speed.
+* To create a bzip2 tarball: `tar cvfj class.tar.bz2 class/`
+* To check the contents: `tar tjf class.tar.gz` 
+* To extract and uncompress the tarball : `tar xvf class.tar.bz2`
 -- *Slide End* --
 
 -- *Slide* --
-### Part 1: Parallel Computing and Parallel Programming
-* Cluster computing with data parallelism: The horse and cart example.
-* With a cluster architecture, applications can be more easily parallelised across them. Parallel computing refers to the submission of jobs or processes over multiple processors and by splitting up the data or tasks between them.
-* Further examples of serial versus parallel; random number generation, driving a car. 
-* Some applications have included weather forecasting, aerodynamic design, fluid mechanics, radiation modelling, molecullar dynamics, CGI rendering for popular movies. Reality is a parallel system!
+### Redirections and Tee
+* A core principle of UNIX-like operating systems is that the output of one program should be usable as the input to another.
+* The introductory lesson included basic commands for redirection, concatenation, and piping.
+* Process streams as well as data streams can be redirected: `diff -u <(ls dir1) <(ls dir2)`
+* In UNIX-like operating systems devices are a type of file as well, and are structured under the /dev directory. 
+* The default behaviour is to accept inputs from the terminal (standard input) and display the results, either output or errors, to the terminal (standard output). 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 1: Generic HPC Cluster Design
-<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SpartanIntro/master/Images/genericcluster.png" />
+### Redirections and Tee cont..
+* Redirections can be further modified by placing a number next immediately before the redirector, which affects which stream is being used for redirection. These numbers are 0 for standard input, 1 for standard output and 2 for standard error. e.g., `ls -d /home/trainXX/seismic 2> error.txt`
+* Standard error can also to be redirected to the same destination that standard output is directed to using 2>&1; it merges stderr (2) into stdout (1).
+* The tee command copies standard input to standard output and also to any files included in the tee. When combined with pipes it takes input from a single direction and outputs it two directions. e.g.,  who -u | tee whofile.txt | grep trainXX
 -- *Slide End* --
 
 -- *Slide* --
-### Part 1: King Edward is Being Retired
-* Since 2011 UniMelb's general cluster has been Edward (previous system was Alfred).
-* A review was conducted looking at the infrastructure and metrics of Edward, the University's general HPC system since 2011.
-* Edward's usage statistics show that single-core and low memory jobs dominate; 76.35% of jobs from Feb 9 2015 to Feb 9 2016 were single core, and 96.83% used 1-4GB of memory.
+### Redirections and Tee Summary
+
+| Redirection Syntax              | Explanation                                                  |
+|---------------------------------|:------------------------------------------------------------:|
+|`command > file`                 | Redirect standard output to a file                           |
+|`command >> file`                | Redirect standard output to end of file                      |
+|`command 2> file`                | Redirect standard error to a file                            |
+|`command > file 2>&1`            | Redirect standard output and standard error to file          |
+|`command -options < file`        | Redirect a file as standard input to a command               |
+|`command >> file 2>&1`           | Redirect standard and standard error to end of file          |
+|`command | command2`             | Pipe standard output to a second command                     |
+|`command 2>&1 | command2         | Pipe standard output and standard error to a second command  |
+|`command1 | tee file | command2  | Apply command1 and command2 to file                          |
+-- *Slide End* --
+
+
+-- *Slide* --
+### File Attributes, Types, Ownership
+* The `ls -l` command illustrates file ownership (user, group), file type, permissions, and date when last modified.
+* The first character is type; a "-" for a regular file, a "d" for a directory, and "l" for a symbolic link. Less common file types include "b" for block devices (e.g., hard drives, ram etc), "c" for character devices which stream data one character at a time (e.g., mice, keyboards, virtual terminals).
+*  Permissions are expressed in a block of three for "user, group, others" and for permission type (read r, write w, execute x). Executable also implies 'searching', thus "x" is usually found for directories as well.
+* An "s" in the execute field indicated setuid. Causes any user or process to have access to system resources as though they are the owner of the file. If the bit is set for the group, the set group ID bit is set and the user running the program is given access based on access permission for the group the file belongs to.
+* There is "t", "save text attribute", or more commonly known as "sticky bit" in the execute field allows a user to delete or modify only those files in the directory that they own or have write permission for. A typical example is the /tmp directory, which is world-writeable.
 -- *Slide End* --
 
 -- *Slide* --
-### Part 1: What's Different About Spartan?
-* New system is Spartan (not  (not Æthelstan or Ælfweard)
-* University desired a 'more unified experience to access compute services'. 
-* Recommended solution is to make use of existing NeCTAR Research cloud with an expansion of general cloud compute provisioning and use of a smaller "true HPC" system on bare metal nodes.
-* Matches Sparta's citenzship structure; the few Spartiate citizens are bare metal HPC, the more numerous Perioeci free inhabitants are vHPC nodes, and the many Helot slaves are elastic compute nodes.
-* Spartan is not "HPC in the Cloud", it's a chimera.
+### File Attributes, Types, Ownership cont
+* The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : chmod [option] [symbolic | octal] file. For options, the most common is -R or --recursive which changes files and directories recursively.
+* For symbolic notation, first establish the user reference, either "u" (user, the owner of the file), "g" (group, members of teh file's group), "o" (others, neither the owner or group members), or "a" (all). If a user reference is not specified the operator and mode applies to all.
+* Then determine the operation; either "+" (add the mode), "-" remove the mode, or "=" (equals, mode only equals that expression). Finally, specify the mode permissions as described above, "r" (read), "w" (write), "x" (execute), "s" (setuid, setgid), "t" (sticky). 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 1: Spartan HPC/Cloud Hybrid Design
-<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SpartanIntro/master/Images/spartanlayout.png" />
+### File Attributes, Types, Ownership cont
+* In octal notation a three or four digit base-8 value is presented derived from the sum of the component bits, so the equivalent of "r" in symbolic notation adds 4 in octal notation (binary 100), "w" in symbolic notation adds 2 in octal notation (binary 010) and "x" adds 1 in octal notation (binary 001). No permissions adds 0 (binary 000). For special modes the first octal digit is either set to 4 (setuid), 2 (setgid), or 1 (sticky). The sum of the three (or four components) thus makes up an alternative exact notation for the chmod command.
+* If you have root permission, you can make use of the `chown` (change owner) command. Usually group is optional on the grounds that users are usually provided ownership. A common use is to provide ownership to web-writeable directories e.g., (`chown -R www-data:www-data /var/www/files`). 
+* A `umask` ("user mask") which we encountered in the .bashrc limiting the permission modes for files and directories created by a process. When a program or script creates a file or directory, it specifies  permissions. Typical umask values are 022 (removing the write permission for the group and others) and 002 (removing the write permission for others).
 -- *Slide End* --
 
 -- *Slide* --
-### Part I: Logging in and Help
-* To log on to a HPC system, you will need a user account and password and a Secure Shell (ssh) client. Linux distributions almost always include SSH as part of the default installation as does 
-Mac OS 10.x. For MS-­Windows users, the free PuTTY client is recommended (http://putty.org). 
-* To transfer files use scp, WinSCP, Filezilla (https://filezilla-project.org/), or rsync.
-* Logins to Spartan are based on University Active Directory credentials.
+### Links and File Content
+* The ln command creates a link, associating one file with another. There are two basic types; a hard link (the default) and a symbolic link. 
+* The core difference is that a hard link is a specific location of physical data, whereas a symbolic link is an abstract location of another file. Hard links cannot link directories and nor can they cross system boundaries; symbolic links can do both of these. 
+* The general syntax for links is: `ln [option] source destination` .This most common option is -s, to create a symbolic link. The source is the original file. The destination is the link.
 -- *Slide End* --
 
 -- *Slide* --
-### Part I: Logging in and Help II
-* If a user has problems with submitting a job, needs a new application or extension to an existing application installed, if their submissions are generated unexpected errors etc., an email can be sent to: hpc­-support@unimelb.edu.au
-* Example general logins:
-`ssh your­unimelb­email@spartan.hpc.unimelb.edu.au`
-`ssh 'your­unimelb­email'@spartan.hpc.unimelb.edu.au`
-`ssh UNIMELB\\yourUniID@spartan.hpc.unimelb.edu`
-* Example specific login.
-`ssh llafayette@spartan.hpc.unimelb.edu.au`
-* An ~/.ssh/config file on your device will make all this easier!
+### Links and File Content cont...
+* With a hard link: File1 -> Data1 and File2 -> Data1 . With a symbolic link: File2 -> File1 -> Data1
+* A file consists of a filename and an inode reference. The reference maps to the actual inode. The inode contains the permissions, and data address. More than one filename can have the same inode reference
+* Links are particularly useful if you want to share a file with another user, such as working on a collaborative paper (ensure that read/write access is granted). 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: This is a GNU/Linux CLI World 
-<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SpartanIntro/master/Images/gnulinux.png" align="center" height="25%" width="25%" vspace="5" hspace="5" />
-* In November 2015 of the Top 500 Supercomputers worldwide, every single machine used a  "UNIX­like" operating system; 98.8% used Linux, 1.2% used AIX.
+### File Manipulation Commands
+* The command head and tail print the first and last ten lines of a file by default. The standard syntax is `[head..tail] [option] [file]`. The most typical option is `-n` for the number of lines.  
+* Rename will rename the specified files by replacing the first occurrence of expression in their name by replacement. e.g., `rename .txt .bak *.txt`
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: This is a GNU/Linux World CLI II
-* The command­line interface provides a great deal more power and is very resource efficient. 
-* GNU/Linux scales and does so with stability and efficiency.
-* Critical software such as the Message Parsing Interface (MPI) and nearly all scientific programs are designed to work with GNU/Linux. 
-* The operating system and many applications are provided as "free and open source" which are better placed to improve, optimize and maintain.
+### File Manipulation Commands cont...
+* Split can be used to split large files into smaller components. The general syntax is `split [OPTION]... [INPUT [PREFIX]]`. Common options include byte (-b #) or linecount (-l #, default of 1000) for the new files. The input is the filename and the prefix is the output, PREFIXaa, PREFIXab etc.
+* Sort will organise a text file into an order specified by options and output to a specific file, if desired. The general syntax is `sort [option] [input file] -o [filename]`. Some of the options include -b (ignore beginning spaces), -d (use dictionary order, ignore punctuation), -g (general, natural language), -m (merge two input files into one sorted output, -r (sort in reverse order) and -V (version number order).
+* To filter repeated lines in a text file use uniq. The standard syntax is `uniq [options] [input file] [output file]`. 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Exploring The Environment
-* When a user logs in on a Linux or other UNIX-like system on the command line, they start in their home directory (`/home/<<username>>`). 
-* "Everything in the UNIX system is a file"; which means that files, directories, and any input-output resources (disks, keyboard, memory, etc) are treated as a stream of bytes through the filesystem.
-
-| Command     | Explanation                                                                |
-|-------------|:--------------------------------------------------------------------------:|
-|`whoami`   | "Who Am I?; prints the effective user id.                                  |
-|`pwd`      | "Print working directory";  prints the directory where you're currently in.|
-|`ls`       | "List" directory listing                                                   |	
+### System Information Commands
+* The du "disk usage' command has the standard syntax of `du [options] [file]`. Without any arguments du will print all files, entering directories recursively, and provide output in kilobytes. Most commonly experessed as `du -sh` (disk usage, summary form, human readable)
+*  The following is a handy use of xargs is to parse a directory list and output the results to a file. The command script below runs a disk usage in summary, sorts in order of size and exports to the file diskuse.txt. The "\n" is to ignore spaces in filenames.
+`du -sk * | sort -nr | cut -f2 | xargs -d "\n" du -sh  > diskuse.txt`
+* The command 'df' will generate a report of file system disk space usage.
+* The command `free -h` provides total, used, and free memory on a system.
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Command Options
-* Linux commands often come with options expressed as:
-`<command> --<option[s]>`
-
-| Command     | Explanation                                                                |
-|-------------|:--------------------------------------------------------------------------:|
-|`ls -lart` | Directory listing with options (long, all, reverse time)                   |
+### System Information Commands
+* A typical command to access system information is `uname`, with the simple syntax `uname [options]`. The most common command is uname -a (all) which provides, in order, kernel name, network node name, kernel release and version, machine hardware name, processor and hardware platform (if known), and operating system. 
+* Another useful source for system information is the /proc directory. The directory doesn't actually contain 'real' files but runtime system information. Examples: `less /proc/cpuinfo`, `less /proc/filesystems`, `less /proc/uptime`,
+`less /proc/loadavg`, `less /proc/meminfo`, `less /proc/mounts`, `less /proc/partitions`
+* The command lscpu will provide information about the processor architecture as well gathered from /proc/cpuinfo including the number of CPUs, threads, cores, and sockets. 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: The Online Manual
-* Linux commands come with "man" (manual) pages, which provide a terse description of the meaning and options available to a command. A more verbose alternative to man with a simple hypertext system is info. 
-
-| Command     | Explanation                                                              |
-|-------------|:------------------------------------------------------------------------:|
-|`man ls`             | Display the manual entry for the command "ls"                    |
-|`apropos <command>`  | Search for a particular command. Equivalent to "man -k <command>"|
-|`info <command>`     | A verbose description of the command                             |
-
+### Regular Expressions and Metacharacters
+* The main text searching, substitution, and reporting tools are grep, sed (stream editor), and awk (programming language) respectively.
+* Regular expressions have meta-characters, some of which are described below.
+| Metacharacter | Explanation         | Example                                                  |
+|---------------------------------|:------------------------------------------------------------:|
+| ^             | Beginning of line anchor                 | `grep '^row' /usr/share/dict/words` |
+| $             | End of line anchor                       | `grep '$row' /usr/share/dict/words` |
+| .             | Any single character                     | `grep '^...row...' /usr/share/dict/words` |
+| *             | Match zero or more preceeding characters | `grep '^...row*' /usr/share/dict/words` |
+| [ ]          | Matches one in the set        | `grep '^[Pp].row..$' /usr/share/dict/words` |
+| [x-y]		| Matches on in the range      | `grep '^[s-u].row..$' /usr/share/dict/words` |
+| [^ ]          | Matches one character not in the set |  grep '^[^a].row..$' /usr/share/dict/words` |
+| [^x-y]         | Matches any character not in the range | grep '^[^a-z] .row..$' /usr/share/dict/words` |
+| \              | Escape a metacharacter |  grep '^A\.$' /usr/share/dict/words
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Pipes
-* Linux also have very useful 'pipes' and redirect commands. To pipe one command through another use the '|' symbol.
+### Regular Expressions and Metacharacters
+* The 'matches one in the set' metacharacter has a number of options that one may find useful.
+| Metacharater | Explanation                                             |
+|--------------|:--------------------------------------------------------|
+| [:digit:]    | Only the digits 0 to 9                                  |
+| [:alnum:]    | Any alphanumeric character 0 to 9 OR A to Z or a to z.  | 
+| [:alpha:]    | Any alpha character A to Z or a to z.                   |
+| [:blank:]    | Space and TAB characters only.                          |
 
-| Command            | Explanation                                                         |
-|--------------------|:-------------------------------------------------------------------:|
-| <code>who -u  &#124; less</code> | "Who" shows who is logged on and how long they've been idle.        |
-| <code>ps afux &#124; less</code> | "ps" provides a list of current processes.                          |
+* Metacharacters can be combined in an interesting manner with grep options. Examples; (i) using grep to count the number of empty lines in a file; `grep -c '^$' filename` (ii) a search for words with no vowels; `grep -v "[aeiou]" /usr/share/dict/words`
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Redirects
-* To redirect output use the '>' symbol. To redirect input (for example, to feed data to a command) use the '<'. Concatenation is achieved through the use of '>>' symbol. 
-
-| Command           | Explanation                                                          |
-|-------------------|:--------------------------------------------------------------------:|
-| `w > list.txt`  | 'w' is a combination of who, uptime and ps -a, redirected            |
-| `w >> list.txt` | Same command, concatenated                                           |
+### Text Manipulation with sed
+* Sed makes text transformation on an input stream (e.g., file) and has the general form of `sed [OPTION] [SCRIPT] [INPUT]`. Some common options are `e` (multiple scripts per command), `-f` (add script file) and `-i` (in-place editing).
+* The general form of a script is `Command/RegExp/Replacement/Flags`. The most common command is `s` for `substitute`, and the most common flags are `g` for global replacement thoughout each line and `I` to ignore case. 
+* Sed has alternative three alternative delimiters in its scripts; '/', ':', or '|'
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Files and Text Editing I
-* Linux filenames can be constructed of any characters except the forward slash, which is for directory navigation. However it is best to avoid punctuation marks, non-printing characters (e.g., spaces). It is better to use underscores or CamelCase instead of spaces.
-* Linux is case-sensitive with its filenames (e.g., list.txt, LIST.txt lisT.txT are different).
+### Text Manipulation with sed cont...
+| Command                | Explanation                                                                 |
+|------------------------|:----------------------------------------------------------------------------|
+| sed 's/^/     /'       | Insert five whitespaces at the beginning of every line.                     |
+| sed '/baz/s/foo/bar/g' | Substitute all instances of 'foo' with 'bar' on lines that start with 'baz' |
+| sed '/baz/!s/foo/bar/g'| Ssubstitute "foo" with "bar" except for lines which contain "baz" |
+| sed /^$/d    | Delete all blank lines.                                                                |
+| sed s/ *$// | Delete all spaces at the end of every line.                                          |   
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Files and Text Editing II
-* Files do not usually require a program association suffix, although you may find this convenient (a C compiler like files to have .c in their suffix, for example). 
-* The type of file can be determined with the `file` command. The type returned will usually be text, executable binaries, archives, or a catch-all "data" file.
-* There are three text editors usually available on Linux systems on the command-line. The first is `nano`; easy to use, limited functionality. The others (both from 1976) are `vi` (or `vim`), which is terse but powerful, or `emacs` (Editor Macros) editor and environment is a feature-rich application,
+### Text Manipulation with sed cont...
+* Example of sed with carriage returns on files
+| Command               | Explanation                                                                 |
+|-----------------------|:----------------------------------------------------------------------------|
+| sed -i 's/$/\r/g'     | *nix to MS-Windows, adds CR.                                                |
+| sed -i 's/\r$//g'     | MS-Windows to *nix, removes CR                                              |
+
+* A popular list of one-line sed commands can be found at the following URL 
+http://sed.sourceforge.net/sed1line.txt
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Copying and Transferring Files on Local Systems
-* To get a copy of the files from an external source to your home directory, you will probably want to use `wget` or `git`. (e.g., `wget https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SpartanIntro/master/Resources/gattaca.txt`)
-
-| Command           | Explanation                                                          |
-|-------------------|:--------------------------------------------------------------------:|
-| `wget URL`      | Non-interactive download of files over http, https, ftp etc.         |
-| `git clone URL` | Clone a repository into a new directory.                                        |
-
-
+### Report Presentation with awk
+* Awk is a data driven programming language, its name derived from the surname initial of the designers (Alfred Aho, Peter Weinberger, and Brian Kernighan). Awk is particularly good at understanding and manipulating text structured by fields - such as tables of rows and columns. 
+* The essential organization of an AWK program follows the form: pattern { action }. This is sometimes structured with BEGIN and END which specify actions to be taken before any lines are read, and after the last line is read. With it's structured data features, awk can print columns by number ($0 equals everything). 
+* By default awk uses a space as the internal field separator. To use a comma invoke with `-F` e.g. `awk -F"," '{print $3}' quakes.csv`
 -- *Slide End* --
 
 -- *Slide* --
-* To copy a file from within a system use the `cp` command. Common options include `-r` to copy and entire directory
- 
-| Command           | Explanation                                                          |
-|-------------------|:--------------------------------------------------------------------:|
-| `cp source destination`      | Copy a file from source to destination         |
-| `cp -r source destination` | Recursive copy (e.g., a directory) from source to destination                                        |
-| `cp -a source destination` | Recursive copy as archive (with permissions, links)                                        |
+### Report Presentation with awk
+* Adding new separators to the standard output print of multiple fields is also recommended - otherwise AWK will print without any separators. For example; `awk -F"," '{print $1 " : " $3}' quakes.csv`
+* Other commands can be piped through awk: `awk -F"," '{print $1 " : " $3 | "sort"}' quakes.csv | less`
+* 'NR' specified the row number. More examples:
+awk -F"," 'END {print NR}' quakes.csv 
+awk -F"," 'NR>1{print $3 "," $2 "," $1}' quakes.csv 
+awk -F"," '(NR <2) || (NR!=6) && (NR<9)' quakes.csv > selection.txt
+* Other useful awk one-liners make use of the arithmetic functions of this programming language. 
+`awk '{totalf = totalf + NF }; END {print totalf}' $file`			
+# print the total number of fields in $file. 
+`awk '{sum=0; for (i=1; i<=NF; i++) sum=sum+$i; print sum}' $file`	
+# print the sum of the fields (columns) of every line (row); NF is number of field. 
+* A popular list of one-line awk commands can be found at the following URL
+http://www.pement.org/awk/awk1line.txt
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Copying and Transferring Files Between Systems
-* To copy files to between systems desktop use SCP (secure copy protocol) or SFTP (secure file transfer protocol), combining the ssh and cp functionality. The `cp` options can also be used. The source or destination address should also require a remote shell login. For example; `scp -r testdir llafayette@unimelb.edu.au@spartan.hpc.unimelb.edu.au:` Note the colon at the end!
-
-| Command           | Explanation                                                          |
-|-------------------|:--------------------------------------------------------------------:|
-| `scp source.address:/path/ destination.address:/path/`| Secure copy with paths |
-
--- *Slide End* --
--- *Slide* --
-
-### Part 2: Synchronising Files and Directories I
-* The `rsync` utility provides a fast way to keep two collections of files "in sync" by tracking changes. The source or destination address should also require a remote shell login. For example; `rsync -avz testdir llafayette@unimelb.edu.au@spartan.hpc.unimelb.edu.au:`
-
-| Command           | Explanation                                                          |
-|-------------------|:--------------------------------------------------------------------:|
-| `rsync source destination`| General rsync command  |
-| `rsync -avze ssh username@remotemachine:/path/to/source .` | With ssh encryption |
--- *Slide End* --
--- *Slide* --
-
-### Part 2: Synchronising Files and Directories II
-* The `rsync -avz` command ensures that it is in archive mode (recursive, copies symlinks, preserves permissions), is verbose, and compresses on transmission. 
-* Note that rsync is "trailing slash sensitive". A trailing / on a source means "copy the contents of this directory". Without a trailing slash it means "copy the directory".
-
--- *Slide End* --
--- *Slide* --
-
-### Part 2: Synchronising Files and Directories III
-* Rsync can be used in a synchronise mode with the --delete flag.  Consider this with the `-n`, or `--dry-run` options first!
-
-| Command           | Explanation                                                          |
-|-------------------|:--------------------------------------------------------------------:|
-| `rsync -avz --delete source/ username@remotemachine:/path/to/destination| Synchronise source and destination  |
+### Shells and Login Files
+* The default shell environment is the Bash shell (Bourne-again shell). The shell is a program that acts as command interpreter between the user and the kernel.
+* When Bash is invoked as an interactive login shell it first reads and executes commands from the file /etc/profile. It looks for ~/.bash_profile, ~/.bash_login, and ~/.profile, in that order, and reads and executes commands from the first one that exists and is readable.
+* Users can modify their .bash_profile to ensure that they have the environmental features that they want when they login.
+* When a command is entered it is stored in .bash_history
+* When a login shell exits, Bash reads and executes commands from the file ~/.bash_logout, if it exists. 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Creating Directories, Moving Files
-* Directories can be created with the `mkdir` command (e.g., `mkdir braf`).
-* Files can be copies with the `cp` command (e.g., `cp gattaca.txt gattaca2.txt`)
-* Files can be moved with the `mv` command (e.g., `mv gattaca2.txt braf`)
-
--- *Slide* --
-### Part 2: File Differences
-* File differences can be determined by timestamp (e.g., `ls -l gattaca.txt braf/gattaca2.txt`)
-* Content differences can be determined by the `diff` command (e.g., `diff gattaca.txt braf/gattaca.txt`)
-* For a side-by-side representation use the command `sdiff` instead.
+### Example extended .bash_profile
+* A sample extended .bash_profile is available from the directory /usr/local/common/HPCshells
+`alias ls='ls -F' 
+`alias cp='cp -i' 
+`alias ll='ls -laxp' 
+`alias lo='exit' 
+`# Undocumented feature which sets the size to "unlimited". 
+`# http://stackoverflow.com/questions/9457233/unlimited-bash-history 
+`export HISTFILESIZE= 
+`export HISTSIZE= 
+`export HISTTIMEFORMAT="[%F %T] " 
+`# Change the file location because certain bash sessions truncate .bash_history file upon close. 
+`# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login 
+`export HISTFILE=~/.bash_eternal_history 
+`# Force prompt to write history after every command. 
+`# http://superuser.com/questions/20900/bash-history-loss 
+`PROMPT_COMMAND="history -a; $PROMPT_COMMAND" 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Searches and Wildcards
-* To search for files use the find command (e.g., `find . -name '*.txt'`). See also `man find`.
-* To search within files, use the `grep` command (e.g., `grep -i ATEK braf/*`)
-* The most common wildcare is `*`, but there is also `?` (single character).
-* There are also range searches (e.g., `[a-z]` any character between a and z, inclusive)
+### Various Shells
+* Examples of various shells include the *nix-universal Bourne shell (sh) Bourne-Again shell (bash), Z shell (zsh), Korn shell (ksh), extended C shell (tcsh) and the friendly interactive shell (fish). There is even an amusing attempt to develop a shell into a text-based adventure game (Adventure shell, available at http://nadvsh.sourceforge.net/).
+* To view what shells are available; `ls -l /bin/*sh*`
+* Each have different features and often slightly different syntax, which is mostly beyond the scope of this course. However among bash and tsch the following are two major differences.
+| Value       |    bash           |    tcsh             |
+|-------------|:------------------|:--------------------|
+|Variable     |  var=val          |  set var=val        |
+|Environment  |  export var=val   |  setenv var val     | 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Deletions
-* Files can be deleted with the `rm` command (e.g., `rm gattaca.txt`)
-* Empty directories can be deleted with the `rmdir` command (e.g., `rmdir braf`)
-* Directories, files, subdirectories etc can be delted with `rm -rf`.
-* BE VERY CAREFUL!
+### Bash Shell Shortcuts
+
+| Value       | Explanation                                                                     |
+|-------------|:--------------------------------------------------------------------------------|
+| ~           | Shortcut to user's home directory.                                              | 
+| .           | The current directory.                                                          | 
+| ..          | One level up in the file system hierarchy.                                      | 
+| TAB         | Autocompletion suggestions.                                                     | 
+| ctrl+w      | Remove word behind cursor.                                                      | 
+| ctrl+u      | Delete everything from cursor to beginning of the                               | 
+| !!          | Repeat last typed command; can be combined with other commands.                 | 
+| &&          | Combine commands if the first succeeds (e.g., make && make                      | 
+| ||          | Alternative command if the first fails (e.g., make makeile1 || make Makefile)   | 
+| alt+f       | Go forward to the end of the previous word                                      | 
+| alt+b       | Move cursor back to the beginning of the previous word                          | 
+| ctrl+d      | Quick logout.                                                                   | 
+| ctrl+r      | Recursive search through your history to locate previous commands.              | 
+| ctrl+z      | Stop the current process.                                                       |  
 -- *Slide End* --
 
 -- *Slide* --
-### Part 2: Why The File Differences Mattered
-<blockquote>
-BRAF is a human gene that makes a protein (imaginatively) named B-Raf. This protein is involved in sending signals inside cells, which are involved in directing cell growth. In 2002, it was shown to be faulty (mutated) in human cancers. In particular the difference that between the two files "ATVKSRWSGS" and "ATEKSRWSGS" is the difference which leads to susceptibility to metastatic melanoma. 
-</blockquote>
+### Scripts with Variables
+*  The most basic form of scripting simply follows commands in sequence, such as this rather undeveloped backup script, which runs tar and gzip on the home directory. A version of this is available at:
+/usr/local/common/HPCshells/backup1.sh
+* Not much of a script! Consider what parts can be made into variables.
+/usr/local/common/HPCshells/backup2.sh
+* A variable is prefaced by a dollar sign ($) to refer to its value. It can also be assigned with an equals sign, without whitespaces on either side. e.g., 
+`$ Ubh="Unbihexium"
+`$ echo $Ubh 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 3: Environment Modules 
-
-* Environment modules provide for the dynamic modification of the user's environment via module files, such as the location of the application's executables, its manual path, the library path, and so forth
-* Modulefiles also have the advantages of being shared on many users on a system (such as an HPC system) and easily allowing multiple installations of the same application but with different versions and compilation options.
-* The are two implementations of environment modules. The classic modules system is available on the Edward HPC, and the newer Lmod is on Spartan. LMod is considered superior for hierarchies of modules.
+### Special Characters
+* There are also a number of special characters in bash scripting. 
+* Quoting disables these characters for the content within the quotes. Both single and double quotes can be used, and single quotes can be used to incorporate double quotes. 
+* "Backtick" quotation marks can be used for command substitution within the script, but they are not POSIX standard. 
+* Other Special characters include ';' for command separators, '{}' for command blocks, '|' for a pipe, '< > &' as redirection symbols, '$' for variables, and '#' for comments.
+Examples: 
+`echo 'The "Sedimentary" and the "Igenuous" argue about metamorphism'`
+`echo "There are $(ls | wc -l) files in $(pwd)"`
 -- *Slide End* --
 
 -- *Slide* --
-### Part 3: Module Commands I
-
-| Command                         | Explanation                                            |
-|---------------------------------|:------------------------------------------------------:|
-| `module help`                 | List of switches, commands and arguments for modules   |
-| `module avail`                | Lists all the modules which are available to be loaded.|
-| `module display <modulefile>` | Display paths etc for modulefile                       |
-| `module load <modulefile>`    | Loads paths etc to user's environment                  |
-| `module unload <modulefile>`  | Unloads paths etc from user's environment.             |
-| `module list`                 | lists all the modules currently loaded.                |
-
-
+### Scripts with Loops
+* In addition to variable assignments, bash scripting allows for loops (for/do, while/do, util/do). 
+* The for loop executes stated commands for each value in the list.
+* The while loop llows for repetitive execution of a list of commands, as long as the command controlling the while loop executes successfully.
+* The until loop executes until the test condition executes successfully.
+* Examples of these scripts are in 
+/usr/local/common/HPCshells/loops.txt
+* These can be converted to permanent scripts e.g., `/usr/local/common/HPCshells/lowercaserename.sh` and `/usr/local/common/HPCshells/sshtrigger.sh`
 -- *Slide End* --
 
 -- *Slide* --
-### Part 3: Module Commands II
-* There is also the `module switch <modulefile1> <modulefile2>`, which unloads one modulefile (modulefile1) and loads another (modulefile2).
-* On Spartan there is also the lmod-specific `module spider <modulename`, which traverses through the system for modules not available for the user to load.
+### Scripts with Conditionals
+* A set of conditions can be expressed through an if/then/fi structure. A single test with an alternative set of commands is expressed if/then/else/fi. Finally, a switch-like structure can be constructed through a series of elif statements in a if/then/elif/elif/.../else/fi structure. i.e.,
+1. if..then..fi statement (Simple) 
+2. if..then..else..fi statement (Optional) 
+3. if..elif..else..fi statement (Ladder) 
+4. if..then..else..if..then..fi..fi..(Nested) 
+
+* An example is available at: `/usr/local/common/HPCshells/filetest.sh`
 -- *Slide End* --
 
 -- *Slide* --
-### Part 3: Portable Batch System
-* The Portable Batch System (or simply PBS) is a utility software that performs job scheduling by assigning unattended background tasks expressed as batch jobs, among the available resources.
-* Originally developed by MRJ Technology Solutions under contract to NASA in the early 1990s. Released as an open-source product as OpenPBS. Forked by Adaptive Computing as TORQUE (Terascale Open-source Resource and QUEue Manager). Many of the original engineering team now part of Altair Engineering who have their own commercial version, PBSPro. TORQUE is used on the Edward HPC system.
+### Scripts with Conditionals cont...
+* There are several conditional expressions that could be used to test with the files. The following are few common examples; 
+| Value                           |Explanation                                                         |
+|---------------------------------|:-------------------------------------------------------------------|
+| [ -e filepath ]                 | Returns true if file exists.                                       |
+| [$var lt value ] [ gt ] [ eq ]  | Returns true if less than, greater than or equal                   |
+| [ -f filepath ]                 | Returns true if filepath is actually a file.                       |
+| [ -x filepath ]                 | Returns true if file exists and executable.                        |
+| [ -S filepath ]                 | Returns true if file exists and its a socket file.                 |
+| [ expr1 -a expr2 ]              | Returns true if both the expression is true.                       |
+| [ expr1 -o expr2 ]              | Returns true if either of the expression1 or 2 is true.            | 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 3: SLURM
-* Slurm, used on Spartan, began development as a collaborative effort primarily by Lawrence Livermore National Laboratory, SchedMD, Linux NetworX, Hewlett-Packard, and Groupe Bull as a Free Software resource manager. As of November 2015, TOP500 list of most powerful computers in the world indicates that Slurm is the workload manager on six of the top ten systems. Slurm's design is very modular with about 100 optional plugins.
-* There is a repository for converting PBS to SLURM: https://github.com/bjpop/pbs2slurm
+### Scripts with Conditionals cont...
+* Conditionals can also be interrupted and resumed using the 'break' and 'continue' statements. The break command terminates the loop (breaks out of it), while continue causes a jump to the next iteration (repetition) of the loop, skipping all the remaining commands in that particular loop cycle. Examples at: `/usr/local/common/HPCshells/break.sh` and `/usr/local/common/HPCshells/continue.sh`
+* A variant on the conditional to escape the problems associated with deeply nested if-then-else statements is the `case` statement. The first match executes the listed commands. Examples at: `/usr/local/common/HPCshells/case.sh`
 -- *Slide End* --
 
 -- *Slide* --
-### Part 3: Job Submission Principles
-* The steps for job submission are (a) setup and launch., (b) monitor., and (c) retrieve results and analyse. Jobs are launched from the login node with resource requests and, when the job scheduler decides, run on compute nodes. Some directories (e.g.,. user home or project directories) are shared across the entire cluster so output is an accessible place.
-* A cluster is a shared environment thus a a resource requesting system. Policies ensure that everyone has a "fair share" to the resources (e.g., user processor limits).
+### Script Selects and Functions
+* The select command with conditionals can be used to create simple menus for users which prompts them for their input. There is an example at: `/usr/local/common/HPCshells/select.sh`
+* Functions subroutines or subscripts within a shell script, which can have local variables, accept, and return parameters. Functions may not be empty. See the example at: `/usr/local/common/HPCshells/hellofunction.sh`
 -- *Slide End* --
 
 -- *Slide* --
-### Part 3: DON'T RUN JOBS ON THE LOGIN NODE!
-* The login node is a **particularly** shared resource. All users will access the login node in order to check their files, submit jobs etc. If one or more users start to run computationally or I/O intensive tasks on the login node (such as forwarding of graphics, copying large files, running multicore jobs), then that will make operations difficult for everyone.
+### Script  Commands
+* A script can also be initiated in the background with an ampersand. 
+* The commands `fg` (foreground) and `bg` (background) are complementary manipulations of processes.  Jobs can be suspended with Cntrl-Z to return to the terminal. 
+* A background job can be killed with `kill %job-number`. A listing of jobs can be achieved with the `jobs` command.
+For example;
+`eval 'for i in {1..100}; do sleep 2; echo "Igneous" >> rocks.txt ; done' &` 
+`eval 'for i in {1..100}; do sleep 2; echo "Sedimentary" >> rocks.txt ; done'` 
+`eval 'for i in {1..100}; do sleep 2; echo "Metamorphic" >> rocks.txt ; done' &` 
+* It is important not to run large scripts on the login node. Set up a job on a compute node with `sinteractive`.
 -- *Slide End* --
+
 
 -- *Slide* --
-### Part 3: Graphic from IBM 'Red Book' on Job Submission
-<img src="http://levlafayette.com/files/rabbitjobs.png" width="100%" height="100%" title="Job submission using rabbits" />
+### Shell Scripting with SLURM
+* Because SLRUM calls a shell when launched any shell commands can can also be used in a PBS script. The following example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other SLURM job. The jobscript and data files are at: `/usr/local/common/HPCshells/NAMD/drugdock.slurm`
+* A heredoc (also known as a here-string or here-document) is a file or input literal, a section of source code that is treated as a separate file with specified delimiters. In various Unix shells the '<<' with a delimiter name will treat subsequent code until the identifier as reached as a separate file. With the addition of a minus sign, leading tabs are ignored which aid formatting. 
+* For example, the command `tr a-z A-Z << END_TEXT` will conduct a translate on all data until a END_TEXT is reached in the doc for or `tr a-z A-Z <<< 'igneous sedimentary metamorphic'` in the string form. Variables can also be parsed. e.g.., `rocks='igneous sedimentary metamorphic'`, `tr a-z A-Z <<< $rocks`. 
+* Heredocs can also be used however to create SLURM scripts. A loop can be used to create multiple jobs for submission. See `/usr/local/common/HPCshells/herescript.slurm`.
 -- *Slide End* --
 
--- *Slide* --
-### Part 3: Job Setup I
-* Setup and launch consists of writing a short script that initially makes resource requests 
-(walltime, processors, memory, queues) and then commands (loading modules, changing 
-directories, running executables against datasets etc), and optionally checking queueing system.
-* Core command for checking queue `showq` (TORQUE), `squeue` (SLURM)
-* Core command for job submission `qsub [jobscript]` (TORQUE), `sbatch [jobscript]` (SLURM)
--- *Slide End* --
-
--- *Slide* --
-### Part 3: Job Setup II
-* TORQUE jobs must include `cd $PBS_O_WORKDIR` to change to the directory where they were launched. SLURM jobs do not require this. 
-* TORQUE jobs do not parse the user's environment to the compute node by default; the `#$PBS -V` command is required. SLURM does this by default.
--- *Slide End* --
-
--- *Slide* --
-### Part 3: Status and Output
-* Core command for checking job `qstat [jobid]` (TORQUE), `checkjob [jobid]` (Moab), `squeue -j [jobid]` (SLURM), detailed command `scontrol show job [jobid]` (SLURM) 
-* Core command for deleting job `qdel [jobid]` (TORQUE), `scancel [jobid]` (SLURM)
-* Both TORQUE and Slurm provide error and output files (combined into one by default in 
-SLURM). They may also have files for post-job processing. Graphic visualisation is best done on 
-the desktop.
--- *Slide End* --
-
--- *Slide* --
-### Part 4: Single Core Job on Edward and Spartan
-
-| TORQUE (Edward)                     | SLURM (Spartan)                                       | 
-|-------------------------------------|------------------------------------------------------:|
-|`#!/bin/bash`                        | `#!/bin/bash`                                         |
-|`#PBS ­-q compute`                    | `#SBATCH -­p cloud`                                    |
-|`#PBS ­-l walltime=01:00:00`          | `#SBATCH ­­time=01:00:00`                               |
-|`#PBS ­-l nodes=1:ppn=1`              | `#SBATCH ­­nodes=1`                                     |
-|`cd $PBS_O_WORKDIR`                  | `#SBATCH ­­ntasks=1`                                    |
-|`module load my­app­compiler/version`  | `module load my­app­compiler/version`                   |
-|`my­app data`                         | `my­app data`                                          |
--- *Slide End* --
-
--- *Slide* --
-### Part 4 : Multicore Jobs on Edward and Spartan
-
-* Modifying resource allocation requests can improve job efficiency. For TORQUE/Edward use the 
-same script as previously provided but change the resource request as follows:
-`#PBS ­-l nodes=2:ppn=2`
-* For example shared-memory multithreaded jobs on SLURM/Spartan (e.g., OpenMP), modify the 
---cpus-per-task to a maximum of 16, which is the maximum number of cores on a single instance.
-`#SBATCH ­­cpus­per­task=16`
--- *Slide End* --
-
--- *Slide* --
-### Part 4 : Multinode Jobs Spartan
-* For distributed-memory multicore job using message passing, the multinode partition has to be 
-invoked and the resource requests altered e.g.,
-`#!/bin/bash`<br />
-`#SBATCH -­p cloud`<br />
-`#SBATCH ­­nodes=2`<br />
-`#SBATCH ­­ntasks=2`<br />
-`#SBATCH ­­cpus­per­task=1`<br />
-`module load my­app­compiler/version`<br />
-`srun my­mpi­app`
-
-* Multinode jobs on Spartan may be slower if they have a lot of interprocess communication and they cross compute nodes.
--- *Slide End* --
-
--- *Slide* --
-### Part 4 : Job/Batch Arrays
-* With a job or batch array the same batch script, and therefore the same resource requests, is used multiple  times. A typical example is to apply the same task across multiple datasets. The following example submits 10 batch jobs with myapp running against datasets dataset1.csv, dataset2.csv, ... 
-dataset10.csv
-
-`#PBS ­-t 1­10`<br />
-`myapp ${PBS_ARRAYID}.csv`<br />
-
-`#SBATCH ­­array=1­-10`<br />
-`myapp ${SLURM_ARRAY_TASK_ID}.csv`
--- *Slide End* --
-
--- *Slide* --
-### Part 4 : Job/Batch Dependencies
-* A dependency condition is established on which the launching of a batch script depends, creating a conditional pipeline. The dependency directives consist of `after`, `afterok`, `afternotok`, `before`, `beforeok`, `beforenotok`. A typical use case is where the output of one job is required as the input of the next job.
-
-`#PBS ­-W x=depend:afterok:myfirstjob`<br />
-`#SBATCH ­­dependency=afterok:myfirstjobid mysecondjob`
--- *Slide End* --
-
--- *Slide* --
-### Part 4: Interactive Jobs
-* In TORQUE or SLURM, based on the resource requests made on the command  line, puts the user on to a compute node. This is typically done if they user wants to run a  large script (and shouldn't do it on the login node), or wants to test or debug a job. The  following command would launch one node with two processors for ten minutes.
-
-`[lev@edward ~]$ qsub -­l nodes=1:ppn=2,walltime=0:10:0 ­I`<br />
-`[llafayette@unimelb.edu.au@spartan interact]$ sinteractive ­­nodes=1 ­­ntasks­per­node=2 ­­time=0:10:0`
--- *Slide End* --
-
--- *Slide* --
-### Part 5: User Commands PBS/Torque SLURM
-
-| User Commad    | TORQUE (Edward)       | SLURM (Spartan)         | 
-|----------------|-----------------------|------------------------:|
-|Job submission  |qsub [script_file]     |sbatch [script_file]     |
-|Job delete      |qdel [job_id]          |scancel [job_id]         |
-|Job status      |qstat [job_id]         |squeue [job_id]          |
-|Job status      |qstat -u [user_name]   |squeue -u [user_name]    |
-|Node list       |pbsnodes -a            |sinfo -N                 |
-|Queue list      |qstat -Q               |squeue                   |
-|Cluster status  |showq                  |qstatus -a               |
--- *Slide End* --
-
--- *Slide* --
-### Part 5: Job Commands PBS/Torque SLURM
-| Job Specification     | TORQUE (Edward)        | SLURM (Spartan)            | 
-|-----------------------|------------------------|---------------------------:|
-|Script directive       |`#PBS`                  |`#SBATCH`                   |
-|Queue                  |`-q [queue]`            |`-p [queue]`                |
-|Job Name               |`-N [name]`             |`--job-name=[name]`         |
-|Nodes                  |`-l nodes=[count]`      |`-N [min[-max]]`            |
-|CPU Count              |`-l ppn=[count]`        |`-n [count]`                |
-|Wall Clock Limit       |`-l walltime=[hh:mm:ss]`|`-t [days-hh:mm:ss]`        |
-|Event Address          |`-M [address]`          |`--mail-user=[address]`     |
-|Event Notification     |`-m abe`                |`--mail-type=[events]`      |
-|Memory Size            |`-l mem=[MB]`           |`--mem=[mem][M|G|T]`        |
-|Proc Memory Size       |`-l pmem=[MB]`          |`--mem-per-cpu=[mem][M|G|T]`|
--- *Slide End* --
-
--- *Slide* --
-### Part 5: Environment Commands PBS/Torque SLURM
-| Environment Command   | TORQUE (Edward)       | SLURM (Spartan)         | 
-|-----------------------|-----------------------|------------------------:|
-|Job ID                 |`$PBS_JOBID`           |`$SLURM_JOBID`           |
-|Submit Directory       |`$PBS_O_WORKDIR`       |`$SLURM_SUBMIT_DIR`      |
-|Submit Host            |`$PBS_O_HOST`          |`$SLURM_SUBMIT_HOST`     |
-|Node List              |`$PBS_NODEFILE`        |`$SLURM_JOB_NODELIST`    |
-|Job Array Index        |`$PBS_ARRAYID`         |`$SLURM_ARRAY_TASK_ID`   |
--- *Slide End* --
--- *Slide* --
-<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SpartanIntro/master/Images/hypnotoad.png" width="150%" height="150%" />
--- *Slide End* --

@@ -1,2 +1,2 @@
-# SpartanIntro
-An introduction to Spartan and Linux training course.
+# HPCshells
+Advanced Linux commands, regular expressions, shell scripting, and their integration into SLURM scripts.
