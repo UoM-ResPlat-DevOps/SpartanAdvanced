@@ -10,7 +10,7 @@
 
 -- *Slide* --
 ### Archiving and Compressing Files
-* Copy the file from /usr/local/common/OpenMPI/class.tar.gz to the home directory.
+* Copy the file from /usr/local/common/HPCshells/class.tar.gz to the home directory.
 * The double-barelled suffix, .tar.gz indicates that it is an archive ("tape archive"!) and compressed (with the gzip application). Such a file (often appearing as *.tgz) is often referred to as a "tarball".
 * The type of a file can often be determined by the file command: `file class.tar.gz`
 -- *Slide End* --
@@ -69,6 +69,12 @@
 |`command -options < file`          | Redirect a file as standard input to a command                 |
 |`command >> file 2>&1`             | Redirect standard and standard error to end of file            |
 | <code>command &#124; command2</code>             | Pipe standard output to a second command                       |
+-- *Slide End* --
+
+-- *Slide* --
+### Redirections and Tee Summary cont..
+| Redirection Syntax                | Explanation                                                    |
+|-----------------------------------|:--------------------------------------------------------------:|
 |<code>command 2>&1 &#124; command2</code>         | Pipe standard output and standard error to a second command    |
 |<code>command1 &#124; tee file &#124; command2</code> | Apply command1 and command2 to file                            |
 -- *Slide End* --
@@ -168,30 +174,45 @@
 ### Regular Expressions and Metacharacters
 * The main text searching, substitution, and reporting tools are grep, sed (stream editor), and awk (programming language) respectively.
 * Regular expressions have meta-characters, some of which are described below.
+
 | Metacharacter | Explanation         | Example                                          |
-|---------------|:--------------------|-------------------------------------------------:|
+|---------------|--------------------|------------------------------------------------|
 | ^             | Beginning of line anchor   | `grep '^row' /usr/share/dict/words`       |
 | $             | End of line anchor         | `grep '$row' /usr/share/dict/words`       |
-| .             | Any single character       | `grep '^...row...' /usr/share/dict/words` |
-| *             | Match zero plus characters | `grep '^...row*' /usr/share/dict/words`   |
 -- *Slide End* --
 
 -- *Slide* --
 ### Regular Expressions and Metacharacters cont..
-| Metacharacter | Explanation         | Example                                                           |
-|---------------|:---------------------------------------|-----------------------------------------------:|
+| Metacharacter | Explanation        | Example   |
+|---------------|--------------------|-----------|
+| .             | Any single character       | `grep '^...row...' /usr/share/dict/words` |
+| *             | Match zero plus characters | `grep '^...row*' /usr/share/dict/words`   |
 | [ ]           | Matches one in the set                 | `grep '^[Pp].row..$' /usr/share/dict/words`    |
+-- *Slide End* --
+
+-- *Slide* --
+### Regular Expressions and Metacharacters cont..
+| Metacharacter | Explanation        | Example   |
+|---------------|--------------------|-----------|
 | [x-y]		| Matches on in the range                | `grep '^[s-u].row..$' /usr/share/dict/words`   |
 | [^ ]          | Matches one character not in the set   |  `grep '^[^a].row..$' /usr/share/dict/words`   |
+-- *Slide End* --
+
+-- *Slide* --
+### Regular Expressions and Metacharacters cont..
+| Metacharacter | Explanation        | Example   |
+|---------------|--------------------|-----------|
 | [^x-y]        | Matches any character not in the range | `grep '^[^a-z] .row..$' /usr/share/dict/words` |
 | \             | Escape a metacharacter |  grep '^A\.$' /usr/share/dict/words
 -- *Slide End* --
 
+
 -- *Slide* --
 ### Regular Expressions and Metacharacters cont...
 * The 'matches one in the set' metacharacter has a number of options that one may find useful.
+
 | Metacharater | Explanation                                             |
-|--------------|:--------------------------------------------------------|
+|--------------|---------------------------------------------------------|
 | [:digit:]    | Only the digits 0 to 9                                  |
 | [:alnum:]    | Any alphanumeric character 0 to 9 OR A to Z or a to z.  | 
 | [:alpha:]    | Any alpha character A to Z or a to z.                   |
@@ -216,17 +237,17 @@
 | sed 's/^/     /'       | Insert five whitespaces at the beginning of every line.                  | 
 | sed '/baz/s/foo/bar/g' | Substitute all instances of 'foo' with 'bar' on lines that start with 'baz' |
 | sed '/baz/!s/foo/bar/g'| Substitute "foo" with "bar" except for lines which contain "baz" |
-| sed /^$/d    | Delete all blank lines.                                                            |
+| sed /^$/d    | Delete all blank lines.                                                    |
 | sed s/ *$// | Delete all spaces at the end of every line.             |
 -- *Slide End* --
 
 -- *Slide* --
 ### Text Manipulation with sed cont...
-* Example of sed with carriage returns on files
-| Command               | Explanation                                                                 |
-|-----------------------|:----------------------------------------------------------------------------|
-| sed -i 's/$/\r/g'     | *nix to MS-Windows, adds CR.                                                |
-| sed -i 's/\r$//g'     | MS-Windows to *nix, removes CR                                              |
+| Command               | Explanation                             |
+|-----------------------|----------------------------------------|
+| sed -i 's/$/\r/g'     | *nix to MS-Windows, adds CR.            | 
+| sed -i 's/\r$//g'     | MS-Windows to *nix, removes CR          |
+
 * A popular list of one-line sed commands can be found at the following URL 
 http://sed.sourceforge.net/sed1line.txt
 -- *Slide End* --
@@ -235,6 +256,7 @@ http://sed.sourceforge.net/sed1line.txt
 ### Report Presentation with awk
 * Awk is a data driven programming language, its name derived from the surname initial of the designers (Alfred Aho, Peter Weinberger, and Brian Kernighan). Awk is particularly good at understanding and manipulating text structured by fields - such as tables of rows and columns. 
 * The essential organization of an AWK program follows the form: pattern { action }. This is sometimes structured with BEGIN and END which specify actions to be taken before any lines are read, and after the last line is read. With it's structured data features, awk can print columns by number ($0 equals everything).
+-- *Slide End* --
 
 -- *Slide* --
 ### Report Presentation with awk
@@ -266,6 +288,10 @@ http://www.pement.org/awk/awk1line.txt
 ### Shells and Login Files
 * The default shell environment is the Bash shell (Bourne-again shell). The shell is a program that acts as command interpreter between the user and the kernel.
 * When Bash is invoked as an interactive login shell it first reads and executes commands from the file /etc/profile. It looks for ~/.bash_profile, ~/.bash_login, and ~/.profile, in that order, and reads and executes commands from the first one that exists and is readable.
+-- *Slide End* --
+
+-- *Slide* --
+### Shells and Login Files cont...
 * Users can modify their .bash_profile to ensure that they have the environmental features that they want when they login.
 * When a command is entered it is stored in .bash_history
 * When a login shell exits, Bash reads and executes commands from the file ~/.bash_logout, if it exists. 
@@ -286,10 +312,11 @@ http://www.pement.org/awk/awk1line.txt
 -- *Slide* --
 ### Various Shells cont...
 * Each have different features and often slightly different syntax, which is mostly beyond the scope of this course. However among bash and tsch the following are two major differences.
-| Value       |    bash           |    tcsh             |
-|-------------|:------------------|:--------------------|
-|Variable     |  var=val          |  set var=val        |
-|Environment  |  export var=val   |  setenv var val     | 
+
+| Value       |    bash          |    tcsh             |
+|-------------|------------------|--------------------|
+|Variable     |  var=val         |  set var=val        |
+|Environment  |  export var=val  |  setenv var val     | 
 -- *Slide End* --
 
 -- *Slide* --
@@ -301,12 +328,14 @@ http://www.pement.org/awk/awk1line.txt
 | ..          | One level up in the file system hierarchy.                                      | 
 | TAB         | Autocompletion suggestions.                                                     | 
 | !!          | Repeat last typed command; can be combined with other commands.                 | 
-| &&          | Combine commands if the first succeeds (e.g., make && make                      | 
-| ||          | Alternative command if the first fails (e.g., make makeile1 || make Makefile)   | 
+| &&          | Combine commands if the first succeeds (e.g., make && make)                     | 
+| &#124;&#124; | Alternative command if the first fails (e.g., make makefile1 &#124;&#124; make Makefile)  | 
 -- *Slide End* --
 
 -- *Slide* --
 ### Bash Shell Shortcuts cont...
+| Value       | Explanation                                                                     |
+|-------------|:--------------------------------------------------------------------------------|
 | ctrl+w      | Remove word behind cursor.                                                      | 
 | ctrl+u      | Delete everything from cursor to beginning of the                               | 
 | alt+f       | Go forward to the end of the previous word                                      | 
@@ -314,6 +343,12 @@ http://www.pement.org/awk/awk1line.txt
 | ctrl+d      | Quick logout.                                                                   | 
 | ctrl+r      | Recursive search through your history to locate previous commands.              | 
 | ctrl+z      | Stop the current process.                                                       |
+-- *Slide End* --
+
+-- *Slide* --
+### Use of Shell Scripting
+* Shell scripts combine Linux commands with logical operations. It is an underrated utility, but it is not the answer for everything.
+* They are not always great at resource intensive tasks (e.g., extensive file operations) where speed is important. They are certainly not recommended for heavy-duty mathematical operations (e.g., floating point) - use programming language instead. They are not recommended in situations where data structures, multi-dimensional arrays (it's not a database!) and port/socket I/O is important. 
 -- *Slide End* --
 
 -- *Slide* --
@@ -339,6 +374,10 @@ http://www.pement.org/awk/awk1line.txt
 * The for loop executes stated commands for each value in the list.
 * The while loop allows for repetitive execution of a list of commands, as long as the command controlling the while loop executes successfully.
 * The until loop executes until the test condition executes successfully.
+-- *Slide End* --
+
+-- *Slide* --
+### Scripts with Loops cont...
 * Examples of these scripts are in  `/usr/local/common/HPCshells/loops.txt`
 * These can be converted to permanent scripts e.g., `/usr/local/common/HPCshells/lowercaserename.sh` and `/usr/local/common/HPCshells/sshtrigger.sh`
 -- *Slide End* --
@@ -356,12 +395,19 @@ http://www.pement.org/awk/awk1line.txt
 -- *Slide* --
 ### Scripts with Conditionals cont...
 * There are several conditional expressions that could be used to test with the files. The following are few common examples; 
+
 | Value                           |Explanation                                                   |
-|---------------------------------|:-------------------------------------------------------------|
+|---------------------------------|-------------------------------------------------------------|
 | [ -e filepath ]                 | Returns true if file exists.                                 |
 | [$var lt value ] [ gt ] [ eq ]  | Returns true if less than, greater than or equal             |
 | [ -f filepath ]                 | Returns true if filepath is actually a file.                 |
 | [ -x filepath ]                 | Returns true if file exists and executable.                  |
+-- *Slide End* --
+
+-- *Slide* --
+### Scripts with Conditionals cont...
+| Value                           |Explanation                                                   |
+|---------------------------------|-------------------------------------------------------------|
 | [ -S filepath ]                 | Returns true if file exists and its a socket file.           |
 | [ expr1 -a expr2 ]              | Returns true if both the expression is true.                 |
 | [ expr1 -o expr2 ]              | Returns true if either of the expression1 or 2 is true.      | 
@@ -373,6 +419,7 @@ http://www.pement.org/awk/awk1line.txt
 * A variant on the conditional to escape the problems associated with deeply nested if-then-else statements is the `case` statement. The first match executes the listed commands. Examples at: `/usr/local/common/HPCshells/case.sh`
 -- *Slide End* --
 
+
 -- *Slide* --
 ### Script Selects and Functions
 * The select command with conditionals can be used to create simple menus for users which prompts them for their input. There is an example at: `/usr/local/common/HPCshells/select.sh`
@@ -380,11 +427,46 @@ http://www.pement.org/awk/awk1line.txt
 -- *Slide End* --
 
 -- *Slide* --
-### Script  Commands
+### Scripting Conventions
+* There are several scripting conventions which make the code more effective, more robust, more portable, and more readable. Therefore use them!
+* The following example at: `/usr/local/common/HPCshells/findemails.sh` and the datafile `/usr/local/common/HPCshells/hidden.txt` will illustrate some of these conventions.
+-- *Slide End* --
+
+-- *Slide* --
+### Scripting Conventions cont...
+* Liberally comment your code so that other readers know what it does. Use explicit variable names. Use output to tell the user what is happening. Use variables when appropriate rather than hard-coded paths. Provide exit statements to clear variables.
+* A common conditional, and sadly often forgotten, is whether or not a script has the requiste files for input and output specified!
+* Invite user input with the 'read' command; protect against escape characters with the 'raw' option.
+-- *Slide End* --
+
+-- *Slide* --
+### Metacharacters
+* Metacharacters have meaning beyond their literal meaning. Powerful, but use with caution (e.g., wildcards). Metacharacter meaning depends very much on the context, which can cause problems. For example;
+* the semi-colon can be a command separator in a script or a double as a terminator in a case statement. 
+* the colon represents a null command in a script, or as a field separator (e.g., in `/etc/passwd`).
+* the dot (.) is used to source a filename, to represent the current working directory as a path, to represent a character in regular expression, or in multiple form as a sequence.
+-- *Slide End* --
+
+-- *Slide* --
+### Metacharacters cont ..
+* Single quotes however will interpret anything literally between the quotes as a string with no interpretation to a meta-character (aka 'strong quoting'). Double quotes will substitute a limited set which are usually the symbols which are wanted in their interpreted mode. e.g., variables, backticks, and sometimes backslash escapes. (aka "weak quoting"). n example is given at `/usr/local/common/HPCshells/quotes.sh`
+-- *Slide End* --
+
+-- *Slide* --
+### Metacharacters cont ..
+* In some cases backtics are seen for command substitution. This is not a POSIX standard, it does exist for historical reasons. Nesting commands with backticks also requires escape characters; the deeper the nesting the more escape characters required. e.g., echo "Hello, $(whoami)".
+-- *Slide End* --
+
+-- *Slide* --
+### Script Commands
 * A script can also be initiated in the background with an ampersand. 
 * The commands `fg` (foreground) and `bg` (background) are complementary manipulations of processes.  Jobs can be suspended with Cntrl-Z to return to the terminal. 
 * A background job can be killed with `kill %job-number`. A listing of jobs can be achieved with the `jobs` command.
-For example;
+-- *Slide End* --
+
+-- *Slide* --
+### Script  Commands cont...
+* For example;
 `eval 'for i in {1..100}; do sleep 2; echo "Igneous" >> rocks.txt ; done' &` 
 `eval 'for i in {1..100}; do sleep 2; echo "Sedimentary" >> rocks.txt ; done'` 
 `eval 'for i in {1..100}; do sleep 2; echo "Metamorphic" >> rocks.txt ; done' &` 
@@ -392,10 +474,18 @@ For example;
 -- *Slide End* --
 
 -- *Slide* --
-### Shell Scripting with PBS and SLURM
-* Because SLRUM calls a shell when launched any shell commands can can also be used in a PBS or SLURM script. The following example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other SLURM job. The jobscript and data files are at: `/usr/local/common/HPCshells/NAMD/drugdock.slurm`
+### Shell Scripting Example with PBS and SLURM
+* Because SLRUM calls a shell when launched any shell commands can can also be used in a PBS or SLURM script. The following example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other SLURM job. The jobscript and data files are at: `/usr/local/common/HPCshells/NAMD/drugdock.slurm` [EDIT]
+-- *Slide End* --
+
+-- *Slide* --
+### Automatic Script Generation
 * A heredoc (also known as a here-string or here-document) is a file or input literal, a section of source code that is treated as a separate file with specified delimiters. In various Unix shells the '<<' with a delimiter name will treat subsequent code until the identifier as reached as a separate file. With the addition of a minus sign, leading tabs are ignored which aid formatting. 
+-- *Slide End* --
+
+-- *Slide* --
+### Automatic Script Generation cont...
 * For example, the command `tr a-z A-Z << END_TEXT` will conduct a translate on all data until a END_TEXT is reached in the doc for or `tr a-z A-Z <<< 'igneous sedimentary metamorphic'` in the string form. Variables can also be parsed. e.g.., `rocks='igneous sedimentary metamorphic'`, `tr a-z A-Z <<< $rocks`. 
-* Heredocs can also be used however to create SLURM scripts. A loop can be used to create multiple jobs for submission. See `/usr/local/common/HPCshells/herescript.slurm`.
+* Heredocs can also be used however to create SLURM scripts. A loop can be used to create multiple jobs for submission. See `/usr/local/common/HPCshells/heres/herescript.sh`.
 -- *Slide End* --
 
