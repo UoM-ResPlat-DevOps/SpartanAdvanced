@@ -150,7 +150,7 @@
 `du -sk * | sort -nr | cut -f2 | xargs -d "\n" du -sh  > diskuse.txt`
 -- *Slide End* --
 
--- *Slide* -- cont..
+-- *Slide* -- 
 ### System Information Commands cont...
 * The command 'df' will generate a report of file system disk space usage.
 * The command `free -h` provides total, used, and free memory on a system.
@@ -176,6 +176,7 @@
 | *             | Match zero plus characters | `grep '^...row*' /usr/share/dict/words`   |
 -- *Slide End* --
 
+-- *Slide* --
 ### Regular Expressions and Metacharacters cont..
 | Metacharacter | Explanation         | Example                                                           |
 |---------------|:---------------------------------------|-----------------------------------------------:|
@@ -208,7 +209,6 @@
 * The general form of a script is `Command/RegExp/Replacement/Flags`. The most common command is `s` for `substitute`, and the most common flags are `g` for global replacement thoughout each line and `I` to ignore case. 
 * Sed has alternative three alternative delimiters in its scripts; '/', ':', or '|'
 -- *Slide End* --
-
 -- *Slide* --
 ### Text Manipulation with sed cont...
 | Command                | Explanation                                                              |
