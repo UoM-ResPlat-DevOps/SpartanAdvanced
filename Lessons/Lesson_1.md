@@ -13,6 +13,10 @@
 * Copy the file from /usr/local/common/OpenMPI/class.tar.gz to the home directory.
 * The double-barelled suffix, .tar.gz indicates that it is an archive ("tape archive"!) and compressed (with the gzip application). Such a file (often appearing as *.tgz) is often referred to as a "tarball".
 * The type of a file can often be determined by the file command: `file class.tar.gz`
+-- *Slide End* --
+
+-- *Slide* --
+### Archiving and Compressing Files cont...
 * To review the contents of a tarball (check for tarbombs!): `tar tf class.tar.gz`
 * T recover from a tarbomb: `tar tf tarbomb.tar | xargs rm -rf`
 * To extract (and compare value of compression): `tar xvf class.tar.gz`
@@ -41,38 +45,54 @@
 ### Redirections and Tee cont..
 * Redirections can be further modified by placing a number next immediately before the redirector, which affects which stream is being used for redirection. These numbers are 0 for standard input, 1 for standard output and 2 for standard error. e.g., `ls -d /home/trainXX/seismic 2> error.txt`
 * Standard error can also to be redirected to the same destination that standard output is directed to using 2>&1; it merges stderr (2) into stdout (1).
+-- *Slide End* --
+
+-- *Slide* --
+### Redirections and Tee cont..
 * The tee command copies standard input to standard output and also to any files included in the tee. When combined with pipes it takes input from a single direction and outputs it two directions. e.g.,  who -u | tee whofile.txt | grep trainXX
 -- *Slide End* --
 
 -- *Slide* --
 ### Redirections and Tee Summary
-
-| Redirection Syntax              | Explanation                                                  |
-|---------------------------------|:------------------------------------------------------------:|
-|`command > file`                 | Redirect standard output to a file                           |
-|`command >> file`                | Redirect standard output to end of file                      |
-|`command 2> file`                | Redirect standard error to a file                            |
-|`command > file 2>&1`            | Redirect standard output and standard error to file          |
-|`command -options < file`        | Redirect a file as standard input to a command               |
-|`command >> file 2>&1`           | Redirect standard and standard error to end of file          |
-|`command | command2`             | Pipe standard output to a second command                     |
-|`command 2>&1 | command2         | Pipe standard output and standard error to a second command  |
-|`command1 | tee file | command2  | Apply command1 and command2 to file                          |
+| Redirection Syntax                | Explanation                                                    |
+|-----------------------------------|:--------------------------------------------------------------:|
+|`command > file`                   | Redirect standard output to a file                             |
+|`command >> file`                  | Redirect standard output to end of file                        |
+|`command 2> file`                  | Redirect standard error to a file                              |
+|`command > file 2>&1`              | Redirect standard output and standard error to file            |
 -- *Slide End* --
 
+-- *Slide* --
+### Redirections and Tee Summary cont..
+| Redirection Syntax                | Explanation                                                    |
+|-----------------------------------|:--------------------------------------------------------------:|
+|`command -options < file`          | Redirect a file as standard input to a command                 |
+|`command >> file 2>&1`             | Redirect standard and standard error to end of file            |
+| <code>command &#124; command2</code>             | Pipe standard output to a second command                       |
+|<code>command 2>&1 &#124; command2</code>         | Pipe standard output and standard error to a second command    |
+|<code>command1 &#124; tee file &#124; command2</code> | Apply command1 and command2 to file                            |
+-- *Slide End* --
 
 -- *Slide* --
 ### File Attributes, Types, Ownership
 * The `ls -l` command illustrates file ownership (user, group), file type, permissions, and date when last modified.
 * The first character is type; a "-" for a regular file, a "d" for a directory, and "l" for a symbolic link. Less common file types include "b" for block devices (e.g., hard drives, ram etc), "c" for character devices which stream data one character at a time (e.g., mice, keyboards, virtual terminals).
+-- *Slide End* --
+
+-- *Slide* --
+### File Attributes, Types, Ownership
 *  Permissions are expressed in a block of three for "user, group, others" and for permission type (read r, write w, execute x). Executable also implies 'searching', thus "x" is usually found for directories as well.
 * An "s" in the execute field indicated setuid. Causes any user or process to have access to system resources as though they are the owner of the file. If the bit is set for the group, the set group ID bit is set and the user running the program is given access based on access permission for the group the file belongs to.
-* There is "t", "save text attribute", or more commonly known as "sticky bit" in the execute field allows a user to delete or modify only those files in the directory that they own or have write permission for. A typical example is the /tmp directory, which is world-writeable.
 -- *Slide End* --
 
 -- *Slide* --
 ### File Attributes, Types, Ownership cont
+* There is "t", "save text attribute", or more commonly known as "sticky bit" in the execute field allows a user to delete or modify only those files in the directory that they own or have write permission for. A typical example is the /tmp directory, which is world-writeable.
 * The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : chmod [option] [symbolic | octal] file. For options, the most common is -R or --recursive which changes files and directories recursively.
+-- *Slide End* --
+
+-- *Slide* --
+### File Attributes, Types, Ownership cont
 * For symbolic notation, first establish the user reference, either "u" (user, the owner of the file), "g" (group, members of teh file's group), "o" (others, neither the owner or group members), or "a" (all). If a user reference is not specified the operator and mode applies to all.
 * Then determine the operation; either "+" (add the mode), "-" remove the mode, or "=" (equals, mode only equals that expression). Finally, specify the mode permissions as described above, "r" (read), "w" (write), "x" (execute), "s" (setuid, setgid), "t" (sticky). 
 -- *Slide End* --
@@ -80,7 +100,15 @@
 -- *Slide* --
 ### File Attributes, Types, Ownership cont
 * In octal notation a three or four digit base-8 value is presented derived from the sum of the component bits, so the equivalent of "r" in symbolic notation adds 4 in octal notation (binary 100), "w" in symbolic notation adds 2 in octal notation (binary 010) and "x" adds 1 in octal notation (binary 001). No permissions adds 0 (binary 000). For special modes the first octal digit is either set to 4 (setuid), 2 (setgid), or 1 (sticky). The sum of the three (or four components) thus makes up an alternative exact notation for the chmod command.
+-- *Slide End* --
+
+-- *Slide* --
+### File Attributes, Types, Ownership cont
 * If you have root permission, you can make use of the `chown` (change owner) command. Usually group is optional on the grounds that users are usually provided ownership. A common use is to provide ownership to web-writeable directories e.g., (`chown -R www-data:www-data /var/www/files`). 
+-- *Slide End* --
+
+-- *Slide* --
+### File Attributes, Types, Ownership cont
 * A `umask` ("user mask") which we encountered in the .bashrc limiting the permission modes for files and directories created by a process. When a program or script creates a file or directory, it specifies  permissions. Typical umask values are 022 (removing the write permission for the group and others) and 002 (removing the write permission for others).
 -- *Slide End* --
 
@@ -107,6 +135,10 @@
 -- *Slide* --
 ### File Manipulation Commands cont...
 * Split can be used to split large files into smaller components. The general syntax is `split [OPTION]... [INPUT [PREFIX]]`. Common options include byte (-b #) or linecount (-l #, default of 1000) for the new files. The input is the filename and the prefix is the output, PREFIXaa, PREFIXab etc.
+-- *Slide End* --
+
+-- *Slide* --
+### File Manipulation Commands cont...
 * Sort will organise a text file into an order specified by options and output to a specific file, if desired. The general syntax is `sort [option] [input file] -o [filename]`. Some of the options include -b (ignore beginning spaces), -d (use dictionary order, ignore punctuation), -g (general, natural language), -m (merge two input files into one sorted output, -r (sort in reverse order) and -V (version number order).
 * To filter repeated lines in a text file use uniq. The standard syntax is `uniq [options] [input file] [output file]`. 
 -- *Slide End* --
@@ -116,13 +148,17 @@
 * The du "disk usage' command has the standard syntax of `du [options] [file]`. Without any arguments du will print all files, entering directories recursively, and provide output in kilobytes. Most commonly experessed as `du -sh` (disk usage, summary form, human readable)
 *  The following is a handy use of xargs is to parse a directory list and output the results to a file. The command script below runs a disk usage in summary, sorts in order of size and exports to the file diskuse.txt. The "\n" is to ignore spaces in filenames.
 `du -sk * | sort -nr | cut -f2 | xargs -d "\n" du -sh  > diskuse.txt`
+-- *Slide End* --
+
+-- *Slide* -- cont..
+### System Information Commands cont...
 * The command 'df' will generate a report of file system disk space usage.
 * The command `free -h` provides total, used, and free memory on a system.
+* A typical command to access system information is `uname`, with the simple syntax `uname [options]`. The most common command is uname -a (all) which provides, in order, kernel name, network node name, kernel release and version, machine hardware name, processor and hardware platform (if known), and operating system. 
 -- *Slide End* --
 
 -- *Slide* --
-### System Information Commands
-* A typical command to access system information is `uname`, with the simple syntax `uname [options]`. The most common command is uname -a (all) which provides, in order, kernel name, network node name, kernel release and version, machine hardware name, processor and hardware platform (if known), and operating system. 
+### System Information Commands cont...
 * Another useful source for system information is the /proc directory. The directory doesn't actually contain 'real' files but runtime system information. Examples: `less /proc/cpuinfo`, `less /proc/filesystems`, `less /proc/uptime`,
 `less /proc/loadavg`, `less /proc/meminfo`, `less /proc/mounts`, `less /proc/partitions`
 * The command lscpu will provide information about the processor architecture as well gathered from /proc/cpuinfo including the number of CPUs, threads, cores, and sockets. 
@@ -132,21 +168,26 @@
 ### Regular Expressions and Metacharacters
 * The main text searching, substitution, and reporting tools are grep, sed (stream editor), and awk (programming language) respectively.
 * Regular expressions have meta-characters, some of which are described below.
-| Metacharacter | Explanation         | Example                                                  |
-|---------------------------------|:------------------------------------------------------------:|
-| ^             | Beginning of line anchor                 | `grep '^row' /usr/share/dict/words` |
-| $             | End of line anchor                       | `grep '$row' /usr/share/dict/words` |
-| .             | Any single character                     | `grep '^...row...' /usr/share/dict/words` |
-| *             | Match zero or more preceeding characters | `grep '^...row*' /usr/share/dict/words` |
-| [ ]          | Matches one in the set        | `grep '^[Pp].row..$' /usr/share/dict/words` |
-| [x-y]		| Matches on in the range      | `grep '^[s-u].row..$' /usr/share/dict/words` |
-| [^ ]          | Matches one character not in the set |  grep '^[^a].row..$' /usr/share/dict/words` |
-| [^x-y]         | Matches any character not in the range | grep '^[^a-z] .row..$' /usr/share/dict/words` |
-| \              | Escape a metacharacter |  grep '^A\.$' /usr/share/dict/words
+| Metacharacter | Explanation         | Example                                          |
+|---------------|:--------------------|-------------------------------------------------:|
+| ^             | Beginning of line anchor   | `grep '^row' /usr/share/dict/words`       |
+| $             | End of line anchor         | `grep '$row' /usr/share/dict/words`       |
+| .             | Any single character       | `grep '^...row...' /usr/share/dict/words` |
+| *             | Match zero plus characters | `grep '^...row*' /usr/share/dict/words`   |
+-- *Slide End* --
+
+### Regular Expressions and Metacharacters cont..
+| Metacharacter | Explanation         | Example                                                           |
+|---------------|:---------------------------------------|-----------------------------------------------:|
+| [ ]           | Matches one in the set                 | `grep '^[Pp].row..$' /usr/share/dict/words`    |
+| [x-y]		| Matches on in the range                | `grep '^[s-u].row..$' /usr/share/dict/words`   |
+| [^ ]          | Matches one character not in the set   |  `grep '^[^a].row..$' /usr/share/dict/words`   |
+| [^x-y]        | Matches any character not in the range | `grep '^[^a-z] .row..$' /usr/share/dict/words` |
+| \             | Escape a metacharacter |  grep '^A\.$' /usr/share/dict/words
 -- *Slide End* --
 
 -- *Slide* --
-### Regular Expressions and Metacharacters
+### Regular Expressions and Metacharacters cont...
 * The 'matches one in the set' metacharacter has a number of options that one may find useful.
 | Metacharater | Explanation                                             |
 |--------------|:--------------------------------------------------------|
@@ -154,7 +195,10 @@
 | [:alnum:]    | Any alphanumeric character 0 to 9 OR A to Z or a to z.  | 
 | [:alpha:]    | Any alpha character A to Z or a to z.                   |
 | [:blank:]    | Space and TAB characters only.                          |
+-- *Slide End* --
 
+-- *Slide* --
+### Regular Expressions and Metacharacters cont...
 * Metacharacters can be combined in an interesting manner with grep options. Examples; (i) using grep to count the number of empty lines in a file; `grep -c '^$' filename` (ii) a search for words with no vowels; `grep -v "[aeiou]" /usr/share/dict/words`
 -- *Slide End* --
 
@@ -167,13 +211,13 @@
 
 -- *Slide* --
 ### Text Manipulation with sed cont...
-| Command                | Explanation                                                                 |
-|------------------------|:----------------------------------------------------------------------------|
-| sed 's/^/     /'       | Insert five whitespaces at the beginning of every line.                     |
+| Command                | Explanation                                                              |
+|------------------------|:-------------------------------------------------------------------------|
+| sed 's/^/     /'       | Insert five whitespaces at the beginning of every line.                  | 
 | sed '/baz/s/foo/bar/g' | Substitute all instances of 'foo' with 'bar' on lines that start with 'baz' |
-| sed '/baz/!s/foo/bar/g'| Ssubstitute "foo" with "bar" except for lines which contain "baz" |
-| sed /^$/d    | Delete all blank lines.                                                                |
-| sed s/ *$// | Delete all spaces at the end of every line.                                          |   
+| sed '/baz/!s/foo/bar/g'| Substitute "foo" with "bar" except for lines which contain "baz" |
+| sed /^$/d    | Delete all blank lines.                                                            |
+| sed s/ *$// | Delete all spaces at the end of every line.             |
 -- *Slide End* --
 
 -- *Slide* --
@@ -183,7 +227,6 @@
 |-----------------------|:----------------------------------------------------------------------------|
 | sed -i 's/$/\r/g'     | *nix to MS-Windows, adds CR.                                                |
 | sed -i 's/\r$//g'     | MS-Windows to *nix, removes CR                                              |
-
 * A popular list of one-line sed commands can be found at the following URL 
 http://sed.sourceforge.net/sed1line.txt
 -- *Slide End* --
@@ -191,23 +234,30 @@ http://sed.sourceforge.net/sed1line.txt
 -- *Slide* --
 ### Report Presentation with awk
 * Awk is a data driven programming language, its name derived from the surname initial of the designers (Alfred Aho, Peter Weinberger, and Brian Kernighan). Awk is particularly good at understanding and manipulating text structured by fields - such as tables of rows and columns. 
-* The essential organization of an AWK program follows the form: pattern { action }. This is sometimes structured with BEGIN and END which specify actions to be taken before any lines are read, and after the last line is read. With it's structured data features, awk can print columns by number ($0 equals everything). 
-* By default awk uses a space as the internal field separator. To use a comma invoke with `-F` e.g. `awk -F"," '{print $3}' quakes.csv`
--- *Slide End* --
+* The essential organization of an AWK program follows the form: pattern { action }. This is sometimes structured with BEGIN and END which specify actions to be taken before any lines are read, and after the last line is read. With it's structured data features, awk can print columns by number ($0 equals everything).
 
 -- *Slide* --
 ### Report Presentation with awk
-* Adding new separators to the standard output print of multiple fields is also recommended - otherwise AWK will print without any separators. For example; `awk -F"," '{print $1 " : " $3}' quakes.csv`
+* By default awk uses a space as the internal field separator. To use a comma invoke with `-F` e.g. `awk -F"," '{print $3}' quakes.csv`
+* Adding new separators to the standard output print of multiple fields is recommended - otherwise AWK will print without any separators. For example; `awk -F"," '{print $1 " : " $3}' quakes.csv`
 * Other commands can be piped through awk: `awk -F"," '{print $1 " : " $3 | "sort"}' quakes.csv | less`
+-- *Slide End* --
+
+-- *Slide* --
+### Report Presentation with awk cont...
 * 'NR' specified the row number. More examples:
 awk -F"," 'END {print NR}' quakes.csv 
 awk -F"," 'NR>1{print $3 "," $2 "," $1}' quakes.csv 
 awk -F"," '(NR <2) || (NR!=6) && (NR<9)' quakes.csv > selection.txt
-* Other useful awk one-liners make use of the arithmetic functions of this programming language. 
-`awk '{totalf = totalf + NF }; END {print totalf}' $file`			
-# print the total number of fields in $file. 
+-- *Slide End* --
+
+-- *Slide* --
+### Report Presentation with awk cont...
+* Other useful awk one-liners make use of the arithmetic functions of this programming language:
+* Print the total number of fields in $file. 
+`awk '{totalf = totalf + NF }; END {print totalf}' $file`
+* Print the sum of the fields (columns) of every line (row); NF is number of field. 
 `awk '{sum=0; for (i=1; i<=NF; i++) sum=sum+$i; print sum}' $file`	
-# print the sum of the fields (columns) of every line (row); NF is number of field. 
 * A popular list of one-line awk commands can be found at the following URL
 http://www.pement.org/awk/awk1line.txt
 -- *Slide End* --
@@ -224,27 +274,17 @@ http://www.pement.org/awk/awk1line.txt
 -- *Slide* --
 ### Example extended .bash_profile
 * A sample extended .bash_profile is available from the directory /usr/local/common/HPCshells
-`alias ls='ls -F' 
-`alias cp='cp -i' 
-`alias ll='ls -laxp' 
-`alias lo='exit' 
-`# Undocumented feature which sets the size to "unlimited". 
-`# http://stackoverflow.com/questions/9457233/unlimited-bash-history 
-`export HISTFILESIZE= 
-`export HISTSIZE= 
-`export HISTTIMEFORMAT="[%F %T] " 
-`# Change the file location because certain bash sessions truncate .bash_history file upon close. 
-`# http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login 
-`export HISTFILE=~/.bash_eternal_history 
-`# Force prompt to write history after every command. 
-`# http://superuser.com/questions/20900/bash-history-loss 
-`PROMPT_COMMAND="history -a; $PROMPT_COMMAND" 
+* Includes alias, history size modifications etc.
 -- *Slide End* --
 
 -- *Slide* --
 ### Various Shells
 * Examples of various shells include the *nix-universal Bourne shell (sh) Bourne-Again shell (bash), Z shell (zsh), Korn shell (ksh), extended C shell (tcsh) and the friendly interactive shell (fish). There is even an amusing attempt to develop a shell into a text-based adventure game (Adventure shell, available at http://nadvsh.sourceforge.net/).
 * To view what shells are available; `ls -l /bin/*sh*`
+-- *Slide End* --
+
+-- *Slide* --
+### Various Shells cont...
 * Each have different features and often slightly different syntax, which is mostly beyond the scope of this course. However among bash and tsch the following are two major differences.
 | Value       |    bash           |    tcsh             |
 |-------------|:------------------|:--------------------|
@@ -254,34 +294,33 @@ http://www.pement.org/awk/awk1line.txt
 
 -- *Slide* --
 ### Bash Shell Shortcuts
-
 | Value       | Explanation                                                                     |
 |-------------|:--------------------------------------------------------------------------------|
 | ~           | Shortcut to user's home directory.                                              | 
 | .           | The current directory.                                                          | 
 | ..          | One level up in the file system hierarchy.                                      | 
 | TAB         | Autocompletion suggestions.                                                     | 
-| ctrl+w      | Remove word behind cursor.                                                      | 
-| ctrl+u      | Delete everything from cursor to beginning of the                               | 
 | !!          | Repeat last typed command; can be combined with other commands.                 | 
 | &&          | Combine commands if the first succeeds (e.g., make && make                      | 
 | ||          | Alternative command if the first fails (e.g., make makeile1 || make Makefile)   | 
+-- *Slide End* --
+
+-- *Slide* --
+### Bash Shell Shortcuts cont...
+| ctrl+w      | Remove word behind cursor.                                                      | 
+| ctrl+u      | Delete everything from cursor to beginning of the                               | 
 | alt+f       | Go forward to the end of the previous word                                      | 
 | alt+b       | Move cursor back to the beginning of the previous word                          | 
 | ctrl+d      | Quick logout.                                                                   | 
 | ctrl+r      | Recursive search through your history to locate previous commands.              | 
-| ctrl+z      | Stop the current process.                                                       |  
+| ctrl+z      | Stop the current process.                                                       |
 -- *Slide End* --
 
 -- *Slide* --
 ### Scripts with Variables
-*  The most basic form of scripting simply follows commands in sequence, such as this rather undeveloped backup script, which runs tar and gzip on the home directory. A version of this is available at:
-/usr/local/common/HPCshells/backup1.sh
-* Not much of a script! Consider what parts can be made into variables.
-/usr/local/common/HPCshells/backup2.sh
-* A variable is prefaced by a dollar sign ($) to refer to its value. It can also be assigned with an equals sign, without whitespaces on either side. e.g., 
-`$ Ubh="Unbihexium"
-`$ echo $Ubh 
+*  The most basic form of scripting simply follows commands in sequence, such as this rather undeveloped backup script, which runs tar and gzip on the home directory. A version of this is available at: `/usr/local/common/HPCshells/backup1.sh`
+* Not much of a script! Consider what parts can be made into variables. `/usr/local/common/HPCshells/backup2.sh`
+* A variable is prefaced by a dollar sign ($) to refer to its value. 
 -- *Slide End* --
 
 -- *Slide* --
@@ -289,8 +328,7 @@ http://www.pement.org/awk/awk1line.txt
 * There are also a number of special characters in bash scripting. 
 * Quoting disables these characters for the content within the quotes. Both single and double quotes can be used, and single quotes can be used to incorporate double quotes. 
 * "Backtick" quotation marks can be used for command substitution within the script, but they are not POSIX standard. 
-* Other Special characters include ';' for command separators, '{}' for command blocks, '|' for a pipe, '< > &' as redirection symbols, '$' for variables, and '#' for comments.
-Examples: 
+* Examples: 
 `echo 'The "Sedimentary" and the "Igenuous" argue about metamorphism'`
 `echo "There are $(ls | wc -l) files in $(pwd)"`
 -- *Slide End* --
@@ -299,10 +337,9 @@ Examples:
 ### Scripts with Loops
 * In addition to variable assignments, bash scripting allows for loops (for/do, while/do, util/do). 
 * The for loop executes stated commands for each value in the list.
-* The while loop llows for repetitive execution of a list of commands, as long as the command controlling the while loop executes successfully.
+* The while loop allows for repetitive execution of a list of commands, as long as the command controlling the while loop executes successfully.
 * The until loop executes until the test condition executes successfully.
-* Examples of these scripts are in 
-/usr/local/common/HPCshells/loops.txt
+* Examples of these scripts are in  `/usr/local/common/HPCshells/loops.txt`
 * These can be converted to permanent scripts e.g., `/usr/local/common/HPCshells/lowercaserename.sh` and `/usr/local/common/HPCshells/sshtrigger.sh`
 -- *Slide End* --
 
@@ -313,22 +350,21 @@ Examples:
 2. if..then..else..fi statement (Optional) 
 3. if..elif..else..fi statement (Ladder) 
 4. if..then..else..if..then..fi..fi..(Nested) 
-
 * An example is available at: `/usr/local/common/HPCshells/filetest.sh`
 -- *Slide End* --
 
 -- *Slide* --
 ### Scripts with Conditionals cont...
 * There are several conditional expressions that could be used to test with the files. The following are few common examples; 
-| Value                           |Explanation                                                         |
-|---------------------------------|:-------------------------------------------------------------------|
-| [ -e filepath ]                 | Returns true if file exists.                                       |
-| [$var lt value ] [ gt ] [ eq ]  | Returns true if less than, greater than or equal                   |
-| [ -f filepath ]                 | Returns true if filepath is actually a file.                       |
-| [ -x filepath ]                 | Returns true if file exists and executable.                        |
-| [ -S filepath ]                 | Returns true if file exists and its a socket file.                 |
-| [ expr1 -a expr2 ]              | Returns true if both the expression is true.                       |
-| [ expr1 -o expr2 ]              | Returns true if either of the expression1 or 2 is true.            | 
+| Value                           |Explanation                                                   |
+|---------------------------------|:-------------------------------------------------------------|
+| [ -e filepath ]                 | Returns true if file exists.                                 |
+| [$var lt value ] [ gt ] [ eq ]  | Returns true if less than, greater than or equal             |
+| [ -f filepath ]                 | Returns true if filepath is actually a file.                 |
+| [ -x filepath ]                 | Returns true if file exists and executable.                  |
+| [ -S filepath ]                 | Returns true if file exists and its a socket file.           |
+| [ expr1 -a expr2 ]              | Returns true if both the expression is true.                 |
+| [ expr1 -o expr2 ]              | Returns true if either of the expression1 or 2 is true.      | 
 -- *Slide End* --
 
 -- *Slide* --
@@ -355,10 +391,9 @@ For example;
 * It is important not to run large scripts on the login node. Set up a job on a compute node with `sinteractive`.
 -- *Slide End* --
 
-
 -- *Slide* --
-### Shell Scripting with SLURM
-* Because SLRUM calls a shell when launched any shell commands can can also be used in a PBS script. The following example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other SLURM job. The jobscript and data files are at: `/usr/local/common/HPCshells/NAMD/drugdock.slurm`
+### Shell Scripting with PBS and SLURM
+* Because SLRUM calls a shell when launched any shell commands can can also be used in a PBS or SLURM script. The following example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other SLURM job. The jobscript and data files are at: `/usr/local/common/HPCshells/NAMD/drugdock.slurm`
 * A heredoc (also known as a here-string or here-document) is a file or input literal, a section of source code that is treated as a separate file with specified delimiters. In various Unix shells the '<<' with a delimiter name will treat subsequent code until the identifier as reached as a separate file. With the addition of a minus sign, leading tabs are ignored which aid formatting. 
 * For example, the command `tr a-z A-Z << END_TEXT` will conduct a translate on all data until a END_TEXT is reached in the doc for or `tr a-z A-Z <<< 'igneous sedimentary metamorphic'` in the string form. Variables can also be parsed. e.g.., `rocks='igneous sedimentary metamorphic'`, `tr a-z A-Z <<< $rocks`. 
 * Heredocs can also be used however to create SLURM scripts. A loop can be used to create multiple jobs for submission. See `/usr/local/common/HPCshells/herescript.slurm`.

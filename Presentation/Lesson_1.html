@@ -58,6 +58,9 @@
 * Copy the file from /usr/local/common/OpenMPI/class.tar.gz to the home directory.
 * The double-barelled suffix, .tar.gz indicates that it is an archive ("tape archive"!) and compressed (with the gzip application). Such a file (often appearing as *.tgz) is often referred to as a "tarball".
 * The type of a file can often be determined by the file command: `file class.tar.gz`
+</script></section>
+<section data-markdown><script type="text/template">
+### Archiving and Compressing Files cont...
 * To review the contents of a tarball (check for tarbombs!): `tar tf class.tar.gz`
 * T recover from a tarbomb: `tar tf tarbomb.tar | xargs rm -rf`
 * To extract (and compare value of compression): `tar xvf class.tar.gz`
@@ -83,41 +86,61 @@
 ### Redirections and Tee cont..
 * Redirections can be further modified by placing a number next immediately before the redirector, which affects which stream is being used for redirection. These numbers are 0 for standard input, 1 for standard output and 2 for standard error. e.g., `ls -d /home/trainXX/seismic 2> error.txt`
 * Standard error can also to be redirected to the same destination that standard output is directed to using 2>&1; it merges stderr (2) into stdout (1).
+</script></section>
+<section data-markdown><script type="text/template">
+### Redirections and Tee cont..
 * The tee command copies standard input to standard output and also to any files included in the tee. When combined with pipes it takes input from a single direction and outputs it two directions. e.g.,  who -u | tee whofile.txt | grep trainXX
 </script></section>
 <section data-markdown><script type="text/template">
 ### Redirections and Tee Summary
-
-| Redirection Syntax              | Explanation                                                  |
-|---------------------------------|:------------------------------------------------------------:|
-|`command > file`                 | Redirect standard output to a file                           |
-|`command >> file`                | Redirect standard output to end of file                      |
-|`command 2> file`                | Redirect standard error to a file                            |
-|`command > file 2>&1`            | Redirect standard output and standard error to file          |
-|`command -options < file`        | Redirect a file as standard input to a command               |
-|`command >> file 2>&1`           | Redirect standard and standard error to end of file          |
-|`command | command2`             | Pipe standard output to a second command                     |
-|`command 2>&1 | command2         | Pipe standard output and standard error to a second command  |
-|`command1 | tee file | command2  | Apply command1 and command2 to file                          |
+| Redirection Syntax                | Explanation                                                    |
+|-----------------------------------|:--------------------------------------------------------------:|
+|`command > file`                   | Redirect standard output to a file                             |
+|`command >> file`                  | Redirect standard output to end of file                        |
+|`command 2> file`                  | Redirect standard error to a file                              |
+|`command > file 2>&1`              | Redirect standard output and standard error to file            |
+</script></section>
+<section data-markdown><script type="text/template">
+### Redirections and Tee Summary cont..
+| Redirection Syntax                | Explanation                                                    |
+|-----------------------------------|:--------------------------------------------------------------:|
+|`command -options < file`          | Redirect a file as standard input to a command                 |
+|`command >> file 2>&1`             | Redirect standard and standard error to end of file            |
+| <code>command &#124; command2</code>             | Pipe standard output to a second command                       |
+|<code>command 2>&1 &#124; command2</code>         | Pipe standard output and standard error to a second command    |
+|<code>command1 &#124; tee file &#124; command2</code> | Apply command1 and command2 to file                            |
 </script></section>
 <section data-markdown><script type="text/template">
 ### File Attributes, Types, Ownership
 * The `ls -l` command illustrates file ownership (user, group), file type, permissions, and date when last modified.
 * The first character is type; a "-" for a regular file, a "d" for a directory, and "l" for a symbolic link. Less common file types include "b" for block devices (e.g., hard drives, ram etc), "c" for character devices which stream data one character at a time (e.g., mice, keyboards, virtual terminals).
+</script></section>
+<section data-markdown><script type="text/template">
+### File Attributes, Types, Ownership
 *  Permissions are expressed in a block of three for "user, group, others" and for permission type (read r, write w, execute x). Executable also implies 'searching', thus "x" is usually found for directories as well.
 * An "s" in the execute field indicated setuid. Causes any user or process to have access to system resources as though they are the owner of the file. If the bit is set for the group, the set group ID bit is set and the user running the program is given access based on access permission for the group the file belongs to.
-* There is "t", "save text attribute", or more commonly known as "sticky bit" in the execute field allows a user to delete or modify only those files in the directory that they own or have write permission for. A typical example is the /tmp directory, which is world-writeable.
 </script></section>
 <section data-markdown><script type="text/template">
 ### File Attributes, Types, Ownership cont
+* There is "t", "save text attribute", or more commonly known as "sticky bit" in the execute field allows a user to delete or modify only those files in the directory that they own or have write permission for. A typical example is the /tmp directory, which is world-writeable.
 * The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : chmod [option] [symbolic | octal] file. For options, the most common is -R or --recursive which changes files and directories recursively.
+</script></section>
+<section data-markdown><script type="text/template">
+### File Attributes, Types, Ownership cont
 * For symbolic notation, first establish the user reference, either "u" (user, the owner of the file), "g" (group, members of teh file's group), "o" (others, neither the owner or group members), or "a" (all). If a user reference is not specified the operator and mode applies to all.
 * Then determine the operation; either "+" (add the mode), "-" remove the mode, or "=" (equals, mode only equals that expression). Finally, specify the mode permissions as described above, "r" (read), "w" (write), "x" (execute), "s" (setuid, setgid), "t" (sticky). 
 </script></section>
 <section data-markdown><script type="text/template">
 ### File Attributes, Types, Ownership cont
 * In octal notation a three or four digit base-8 value is presented derived from the sum of the component bits, so the equivalent of "r" in symbolic notation adds 4 in octal notation (binary 100), "w" in symbolic notation adds 2 in octal notation (binary 010) and "x" adds 1 in octal notation (binary 001). No permissions adds 0 (binary 000). For special modes the first octal digit is either set to 4 (setuid), 2 (setgid), or 1 (sticky). The sum of the three (or four components) thus makes up an alternative exact notation for the chmod command.
+</script></section>
+<section data-markdown><script type="text/template">
+### File Attributes, Types, Ownership cont
 * If you have root permission, you can make use of the `chown` (change owner) command. Usually group is optional on the grounds that users are usually provided ownership. A common use is to provide ownership to web-writeable directories e.g., (`chown -R www-data:www-data /var/www/files`). 
+
+</script></section>
+<section data-markdown><script type="text/template">
+### File Attributes, Types, Ownership cont
 * A `umask` ("user mask") which we encountered in the .bashrc limiting the permission modes for files and directories created by a process. When a program or script creates a file or directory, it specifies  permissions. Typical umask values are 022 (removing the write permission for the group and others) and 002 (removing the write permission for others).
 </script></section>
 <section data-markdown><script type="text/template">
@@ -140,6 +163,9 @@
 <section data-markdown><script type="text/template">
 ### File Manipulation Commands cont...
 * Split can be used to split large files into smaller components. The general syntax is `split [OPTION]... [INPUT [PREFIX]]`. Common options include byte (-b #) or linecount (-l #, default of 1000) for the new files. The input is the filename and the prefix is the output, PREFIXaa, PREFIXab etc.
+</script></section>
+<section data-markdown><script type="text/template">
+### File Manipulation Commands cont...
 * Sort will organise a text file into an order specified by options and output to a specific file, if desired. The general syntax is `sort [option] [input file] -o [filename]`. Some of the options include -b (ignore beginning spaces), -d (use dictionary order, ignore punctuation), -g (general, natural language), -m (merge two input files into one sorted output, -r (sort in reverse order) and -V (version number order).
 * To filter repeated lines in a text file use uniq. The standard syntax is `uniq [options] [input file] [output file]`. 
 </script></section>
