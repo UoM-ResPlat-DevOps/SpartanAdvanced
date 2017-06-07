@@ -1,0 +1,10 @@
+ 10:43:47 up 1 day, 54 min,  3 users,  load average: 0.26, 0.47, 0.48
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+levlafay :0       :0               Tue13   ?xdm?   2:08m  2.09s init --user
+levlafay pts/0    :0               10:01    4:11   0.81s  0.55s ssh spartan
+levlafay pts/8    :0               10:41    3.00s  0.34s  0.03s w
+ 10:43:54 up 1 day, 54 min,  3 users,  load average: 0.24, 0.46, 0.48
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+levlafay :0       :0               Tue13   ?xdm?   2:08m  2.09s init --user
+levlafay pts/0    :0               10:01    4:18   0.81s  0.55s ssh spartan
+levlafay pts/8    :0               10:41    2.00s  0.33s  0.01s w
