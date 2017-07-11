@@ -178,7 +178,7 @@
 | Metacharacter | Explanation         | Example                                          |
 |---------------|--------------------|------------------------------------------------|
 | ^             | Beginning of line anchor   | `grep '^row' /usr/share/dict/words`       |
-| $             | End of line anchor         | `grep '$row' /usr/share/dict/words`       |
+| $             | End of line anchor         | `grep 'row$' /usr/share/dict/words`       |
 -- *Slide End* --
 
 -- *Slide* --
@@ -328,7 +328,7 @@ http://sed.sourceforge.net/sed1line.txt
 | ..          | One level up in the file system hierarchy.                                      | 
 | TAB         | Autocompletion suggestions.                                                     | 
 | !!          | Repeat last typed command; can be combined with other commands.                 | 
-| &&          | Combine commands if the first succeeds (e.g., make && make)                     | 
+| &&          | Combine commands if the first succeeds (e.g., make && make install)                     | 
 | &#124;&#124; | Alternative command if the first fails (e.g., make makefile1 &#124;&#124; make Makefile)  | 
 -- *Slide End* --
 

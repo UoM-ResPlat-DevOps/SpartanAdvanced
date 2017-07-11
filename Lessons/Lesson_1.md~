@@ -178,7 +178,7 @@
 | Metacharacter | Explanation         | Example                                          |
 |---------------|--------------------|------------------------------------------------|
 | ^             | Beginning of line anchor   | `grep '^row' /usr/share/dict/words`       |
-| $             | End of line anchor         | `grep '$row' /usr/share/dict/words`       |
+| $             | End of line anchor         | `grep 'row$' /usr/share/dict/words`       |
 -- *Slide End* --
 
 -- *Slide* --
@@ -315,8 +315,8 @@ http://sed.sourceforge.net/sed1line.txt
 
 | Value       |    bash          |    tcsh             |
 |-------------|------------------|--------------------|
-|Variable     |  var=val         |  set var=val        |
-|Environment  |  export var=val  |  setenv var val     | 
+|Variable     |  `var=val`       |  `set var=val`        |
+|Environment  |  `export var=val`  |  `setenv var val`     | 
 -- *Slide End* --
 
 -- *Slide* --
@@ -328,7 +328,7 @@ http://sed.sourceforge.net/sed1line.txt
 | ..          | One level up in the file system hierarchy.                                      | 
 | TAB         | Autocompletion suggestions.                                                     | 
 | !!          | Repeat last typed command; can be combined with other commands.                 | 
-| &&          | Combine commands if the first succeeds (e.g., make && make)                     | 
+| &&          | Combine commands if the first succeeds (e.g., make && make install)                     | 
 | &#124;&#124; | Alternative command if the first fails (e.g., make makefile1 &#124;&#124; make Makefile)  | 
 -- *Slide End* --
 
@@ -419,7 +419,6 @@ http://sed.sourceforge.net/sed1line.txt
 * A variant on the conditional to escape the problems associated with deeply nested if-then-else statements is the `case` statement. The first match executes the listed commands. Examples at: `/usr/local/common/HPCshells/case.sh`
 -- *Slide End* --
 
-
 -- *Slide* --
 ### Script Selects and Functions
 * The select command with conditionals can be used to create simple menus for users which prompts them for their input. There is an example at: `/usr/local/common/HPCshells/select.sh`
@@ -489,3 +488,6 @@ http://sed.sourceforge.net/sed1line.txt
 * Heredocs can also be used however to create Slurm scripts. A loop can be used to create multiple jobs for submission. See `/usr/local/common/HPCshells/heres/herescript.sh`.
 -- *Slide End* --
 
+-- *Slide* --
+<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SpartanIntro/master/Images/hypnotoad.png" width="150%" height="150%" />
+-- *Slide End* --
