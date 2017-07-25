@@ -474,7 +474,7 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 4: Shell Scripting Example with PBS and Slurm
-* Because SLRUM calls a shell when launched any shell commands can can also be used in a PBS or Slurm script. 
+* Because SLRUM calls a shell when launched any shell commands can can also be used in a Slurm script. 
 * As an example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other Slurm job. The jobscript and data files are at: `/usr/local/common/HPCshells/NAMD/drugdock.Slurm`
 -- *Slide End* --
 
