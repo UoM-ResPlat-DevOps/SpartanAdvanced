@@ -94,7 +94,7 @@
 <section data-markdown><script type="text/template">
 ### Redirections and Tee Summary
 | Redirection Syntax                | Explanation                                                    |
-|-----------------------------------|:--------------------------------------------------------------:|
+|:----------------------------------|:--------------------------------------------------------------:|
 |`command > file`                   | Redirect standard output to a file                             |
 |`command >> file`                  | Redirect standard output to end of file                        |
 |`command 2> file`                  | Redirect standard error to a file                              |
@@ -103,7 +103,7 @@
 <section data-markdown><script type="text/template">
 ### Redirections and Tee Summary cont..
 | Redirection Syntax                | Explanation                                                    |
-|-----------------------------------|:--------------------------------------------------------------:|
+|:----------------------------------|:--------------------------------------------------------------:|
 |`command -options < file`          | Redirect a file as standard input to a command                 |
 |`command >> file 2>&1`             | Redirect standard and standard error to end of file            |
 | <code>command &#124; command2</code>             | Pipe standard output to a second command                       |
@@ -111,7 +111,7 @@
 <section data-markdown><script type="text/template">
 ### Redirections and Tee Summary cont..
 | Redirection Syntax                | Explanation                                                    |
-|-----------------------------------|:--------------------------------------------------------------:|
+|:----------------------------------|:--------------------------------------------------------------:|
 |<code>command 2>&1 &#124; command2</code>         | Pipe standard output and standard error to a second command    |
 |<code>command1 &#124; tee file &#124; command2</code> | Apply command1 and command2 to file                            |
 </script></section>
@@ -199,7 +199,7 @@
 | Metacharacter | Explanation         | Example                                          |
 |---------------|--------------------|------------------------------------------------|
 | ^             | Beginning of line anchor   | `grep '^row' /usr/share/dict/words`       |
-| $             | End of line anchor         | `grep '$row' /usr/share/dict/words`       |
+| $             | End of line anchor         | `grep 'row$' /usr/share/dict/words`       |
 </script></section>
 <section data-markdown><script type="text/template">
 ### Regular Expressions and Metacharacters cont..
@@ -331,7 +331,7 @@ http://sed.sourceforge.net/sed1line.txt
 | ..          | One level up in the file system hierarchy.                                      | 
 | TAB         | Autocompletion suggestions.                                                     | 
 | !!          | Repeat last typed command; can be combined with other commands.                 | 
-| &&          | Combine commands if the first succeeds (e.g., make && make)                     | 
+| &&          | Combine commands if the first succeeds (e.g., make && make install)                     | 
 | &#124;&#124; | Alternative command if the first fails (e.g., make makefile1 &#124;&#124; make Makefile)  | 
 </script></section>
 <section data-markdown><script type="text/template">
