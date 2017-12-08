@@ -268,19 +268,19 @@ http://sed.sourceforge.net/sed1line.txt
 -- *Slide* --
 ### Part 2: Report Presentation with awk cont...
 * 'NR' specified the row number. More examples:
-`awk -F"," 'END {print NR}' quakes.csv` 
-`awk -F"," 'NR>1{print $3 "," $2 "," $1}' quakes.csv`
-`awk -F"," '(NR <2) || (NR!=6) && (NR<9)' quakes.csv > selection.txt`
+`awk -F"," 'END {print NR}' quakes.csv`    
+`awk -F"," 'NR>1{print $3 "," $2 "," $1}' quakes.csv`   
+`awk -F"," '(NR <2) || (NR!=6) && (NR<9)' quakes.csv > selection.txt`   
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 2: Report Presentation with awk cont...
 * Other useful awk one-liners make use of the arithmetic functions of this programming language:
-* Print the total number of fields in $file. 
+* Print the total number of fields in $file.    
 `awk '{totalf = totalf + NF }; END {print totalf}' $file`
-* Print the sum of the fields (columns) of every line (row); NF is number of field. 
+* Print the sum of the fields (columns) of every line (row); NF is number of field.    
 `awk '{sum=0; for (i=1; i<=NF; i++) sum=sum+$i; print sum}' $file`	
-* A popular list of one-line awk commands can be found at the following URL
+* A popular list of one-line awk commands can be found at the following URL   
 `http://www.pement.org/awk/awk1line.txt`
 -- *Slide End* --
 
@@ -364,7 +364,7 @@ http://sed.sourceforge.net/sed1line.txt
 * Quoting disables these characters for the content within the quotes. Both single and double quotes can be used, and single quotes can be used to incorporate double quotes. 
 * "Backtick" quotation marks can be used for command substitution within the script, but they are not POSIX standard. 
 * Examples: 
-`echo 'The "Sedimentary" and the "Igenuous" argue about metamorphism'`
+`echo 'The "Sedimentary" and the "Igenuous" argue about metamorphism'`   
 `echo "There are $(ls | wc -l) files in $(pwd)"`
 -- *Slide End* --
 
@@ -466,9 +466,9 @@ http://sed.sourceforge.net/sed1line.txt
 -- *Slide* --
 ### Part 3: Script  Commands cont...
 * For example;
-`eval 'for i in {1..100}; do sleep 2; echo "Igneous" >> rocks.txt ; done' &` 
-`eval 'for i in {1..100}; do sleep 2; echo "Sedimentary" >> rocks.txt ; done'` 
-`eval 'for i in {1..100}; do sleep 2; echo "Metamorphic" >> rocks.txt ; done' &` 
+`eval 'for i in {1..100}; do sleep 2; echo "Igneous" >> rocks.txt ; done' &`    
+`eval 'for i in {1..100}; do sleep 2; echo "Sedimentary" >> rocks.txt ; done'`    
+`eval 'for i in {1..100}; do sleep 2; echo "Metamorphic" >> rocks.txt ; done' &`    
 * It is important not to run large scripts on the login node. Set up a job on a compute node with `sinteractive`.
 -- *Slide End* --
 
