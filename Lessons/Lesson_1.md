@@ -36,7 +36,7 @@
 ### Part 1: Redirections and Tee
 * A core principle of UNIX-like operating systems is that the output of one program should be usable as the input to another.
 * The introductory lesson included basic commands for redirection, concatenation, and piping.
-* Process streams as well as data streams can be redirected: `diff -u <(ls dir1) <(ls dir2)`
+* Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R /home/lev/data) <(ls -R /home/lev/workdata)`
 * In UNIX-like operating systems devices are a type of file as well, and are structured under the `/dev` directory. 
 * The default behaviour is to accept inputs from the terminal (standard input) and display the results, either output or errors, to the terminal (standard output). 
 -- *Slide End* --
