@@ -37,7 +37,6 @@
 * A core principle of UNIX-like operating systems is that the output of one program should be usable as the input to another.
 * The introductory lesson included basic commands for redirection, concatenation, and piping.
 * Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R /home/lev/data) <(ls -R /home/lev/workdata)`
-* In UNIX-like operating systems devices are a type of file as well, and are structured under the `/dev` directory. 
 * The default behaviour is to accept inputs from the terminal (standard input) and display the results, either output or errors, to the terminal (standard output). 
 -- *Slide End* --
 
@@ -83,6 +82,7 @@
 ### Part 1: File Attributes, Types, Ownership
 * The `ls -l` command illustrates file ownership (user, group), file type, permissions, and date when last modified.
 * The first character is type; a "-" for a regular file, a "d" for a directory, and "l" for a symbolic link. Less common file types include "b" for block devices (e.g., hard drives, ram etc), "c" for character devices which stream data one character at a time (e.g., mice, keyboards, virtual terminals).
+* In UNIX-like operating systems devices are a type of file as well, and are structured under the `/dev` directory. 
 -- *Slide End* --
 
 -- *Slide* --
