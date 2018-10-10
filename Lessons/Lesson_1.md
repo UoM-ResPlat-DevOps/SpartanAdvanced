@@ -99,7 +99,7 @@
 
 -- *Slide* --
 ### Part 1: File Attributes, Types, Ownership cont
-* For symbolic notation, first establish the user reference, either "u" (user, the owner of the file), "g" (group, members of teh file's group), "o" (others, neither the owner or group members), or "a" (all). If a user reference is not specified the operator and mode applies to all.
+* For symbolic notation, first establish the user reference, either "u" (user, the owner of the file), "g" (group, members of the file's group), "o" (others, neither the owner or group members), or "a" (all). If a user reference is not specified the operator and mode applies to all.
 * Then determine the operation; either "+" (add the mode), "-" remove the mode, or "=" (equals, mode only equals that expression). Finally, specify the mode permissions as described above, "r" (read), "w" (write), "x" (execute), "s" (setuid, setgid), "t" (sticky). 
 -- *Slide End* --
 
