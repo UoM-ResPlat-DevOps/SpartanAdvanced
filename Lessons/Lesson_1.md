@@ -5,6 +5,11 @@
 * Part 3: Shells In General, Bash in Particular.
 * Part 4: Variables, Loops, Conditionals, and Functions.
 * Part 5: Shell Scripts with Slurm.
+-- *Slide End* --
+
+-- *Slide* --
+### Part 0: Slide Repository
+* Terminal projection via https://shellshare.net/
 * A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/HPCshells`
 -- *Slide End* --
 
@@ -67,15 +72,15 @@
 |:----------------------------------|:--------------------------------------------------------------:|
 |`command -options < file`          | Redirect a file as standard input to a command                 |
 |`command >> file 2>&1`             | Redirect standard and standard error to end of file            |
-| <code>command &#124; command2</code>             | Pipe standard output to a second command                       |
+| <code>command &#124; command2</code>  | Pipe standard output to a second command                   |
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 1: Redirections and Tee Summary cont..
 | Redirection Syntax                | Explanation                                                    |
 |:----------------------------------|:--------------------------------------------------------------:|
-|<code>command 2>&1 &#124; command2</code>         | Pipe standard output and standard error to a second command    |
-|<code>command1 &#124; tee file &#124; command2</code> | Apply command1 and command2 to file                            |
+|<code>command 2>&1 &#124; command2</code>  | Pipe standard output and standard error to a second command    |
+|<code>command1 &#124; tee file &#124; command2</code> | Apply command1 and command2 to file        |
 -- *Slide End* --
 
 -- *Slide* --

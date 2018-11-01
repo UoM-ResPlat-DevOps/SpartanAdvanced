@@ -51,6 +51,10 @@
 * Part 3: Shells In General, Bash in Particular.
 * Part 4: Variables, Loops, Conditionals, and Functions.
 * Part 5: Shell Scripts with Slurm.
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 0: Slide Repository
+* Terminal projection via https://shellshare.net/
 * A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/HPCshells`
 </script></section>
 <section data-markdown><script type="text/template">
@@ -105,14 +109,14 @@
 |:----------------------------------|:--------------------------------------------------------------:|
 |`command -options < file`          | Redirect a file as standard input to a command                 |
 |`command >> file 2>&1`             | Redirect standard and standard error to end of file            |
-| <code>command &#124; command2</code>             | Pipe standard output to a second command                       |
+| <code>command &#124; command2</code>  | Pipe standard output to a second command                   |
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: Redirections and Tee Summary cont..
 | Redirection Syntax                | Explanation                                                    |
 |:----------------------------------|:--------------------------------------------------------------:|
-|<code>command 2>&1 &#124; command2</code>         | Pipe standard output and standard error to a second command    |
-|<code>command1 &#124; tee file &#124; command2</code> | Apply command1 and command2 to file                            |
+|<code>command 2>&1 &#124; command2</code>  | Pipe standard output and standard error to a second command    |
+|<code>command1 &#124; tee file &#124; command2</code> | Apply command1 and command2 to file        |
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Attributes, Types, Ownership
@@ -132,7 +136,7 @@
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Attributes, Types, Ownership cont
-* For symbolic notation, first establish the user reference, either "u" (user, the owner of the file), "g" (group, members of teh file's group), "o" (others, neither the owner or group members), or "a" (all). If a user reference is not specified the operator and mode applies to all.
+* For symbolic notation, first establish the user reference, either "u" (user, the owner of the file), "g" (group, members of the file's group), "o" (others, neither the owner or group members), or "a" (all). If a user reference is not specified the operator and mode applies to all.
 * Then determine the operation; either "+" (add the mode), "-" remove the mode, or "=" (equals, mode only equals that expression). Finally, specify the mode permissions as described above, "r" (read), "w" (write), "x" (execute), "s" (setuid, setgid), "t" (sticky). 
 </script></section>
 <section data-markdown><script type="text/template">
