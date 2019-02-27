@@ -190,8 +190,8 @@
 ### Part 2: Regular Expressions and Metacharacters cont..
 | Metacharacter | Explanation        | Example   |
 |---------------|--------------------|-----------|
-| .             | Any single character       | `grep '^...row...' /usr/share/dict/words` |
-| *             | Match zero plus characters | `grep '^...row*' /usr/share/dict/words`   |
+| .             | Any single character       | `grep '^...row...$' /usr/share/dict/words` |
+| *             | Match zero plus preceding characters | `grep '^...row.*' /usr/share/dict/words`   |
 | [ ]           | Matches one in the set                 | `grep '^[Pp].row..$' /usr/share/dict/words`    |
 -- *Slide End* --
 
@@ -201,13 +201,14 @@
 |---------------|--------------------|-----------|
 | [x-y]		| Matches on in the range                | `grep '^[s-u].row..$' /usr/share/dict/words`   |
 | [^ ]          | Matches one character not in the set   |  `grep '^[^a].row..$' /usr/share/dict/words`   |
+| `|`     | Logical OR   |  `grep '^[^a|P].row..$' /usr/share/dict/words`   |
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 2: Regular Expressions and Metacharacters cont..
 | Metacharacter | Explanation        | Example   |
 |---------------|--------------------|-----------|
-| [^x-y]        | Matches any character not in the range | `grep '^[^a-z] .row..$' /usr/share/dict/words` |
+| [^x-y]        | Matches any character not in the range | `grep '^[^a-z].row..$' /usr/share/dict/words` |
 | \             | Escape a metacharacter |  `grep '^A\.$' /usr/share/dict/words`
 -- *Slide End* --
 
@@ -215,7 +216,7 @@
 ### Part 2: Regular Expressions and Metacharacters cont...
 * The 'matches one in the set' metacharacter has a number of options that one may find useful.
 
-| Metacharater | Explanation                                             |
+| Metacharacter| Explanation                                             |
 |--------------|---------------------------------------------------------|
 | [:digit:]    | Only the digits 0 to 9                                  |
 | [:alnum:]    | Any alphanumeric character 0 to 9 OR A to Z or a to z.  | 
@@ -439,7 +440,7 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 3: Scripting Conventions cont...
-* Liberally comment your code so that other readers know what it does. Use explicit variable names. Use output to tell the user what is happening. Use variables when appropriate rather than hard-coded paths. Provide exit statements to clear variables.
+* Liberally comment your code so that other readers know what it does. Use explicit variable names. Use output to tell the user what is happening. Use variables when appropriate rather than hard-coded paths. Provide exit statements to clear variables and provide an error code.
 * A common conditional, and sadly often forgotten, is whether or not a script has the requiste files for input and output specified!
 * Invite user input with the 'read' command; protect against escape characters with the 'raw' option.
 -- *Slide End* --
