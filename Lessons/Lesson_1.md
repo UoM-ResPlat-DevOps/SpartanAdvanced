@@ -240,7 +240,7 @@
 | Command                | Explanation                                                              |
 |------------------------|:-------------------------------------------------------------------------|
 | `sed 's/^/     /'`       | Insert five whitespaces at the beginning of every line.                  | 
-| `sed '/baz/s/foo/bar/g' |` Substitute all instances of 'foo' with 'bar' on lines that start with 'baz' |
+| `sed '/baz/s/foo/bar/g'` |  Substitute all instances of 'foo' with 'bar' on lines that start with 'baz' |
 | `sed '/baz/!s/foo/bar/g'`| Substitute "foo" with "bar" except for lines which contain "baz" |
 | `sed /^$/d`    | Delete all blank lines.                                                    |
 | `sed s/ *$//` | Delete all spaces at the end of every line.             |
@@ -343,7 +343,7 @@ http://sed.sourceforge.net/sed1line.txt
 | Value       | Explanation                                                                     |
 |-------------|:--------------------------------------------------------------------------------|
 | ctrl+w      | Remove word behind cursor.                                                      | 
-| ctrl+u      | Delete everything from cursor to beginning of the                               | 
+| ctrl+u      | Delete everything from cursor to beginning of the line                          | 
 | alt+f       | Go forward to the end of the previous word                                      | 
 | alt+b       | Move cursor back to the beginning of the previous word                          | 
 | ctrl+d      | Quick logout.                                                                   | 
@@ -480,7 +480,7 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 4: Shell Scripting Example with PBS and Slurm
-* Because SLRUM calls a shell when launched any shell commands can can also be used in a Slurm script. 
+* Because SLURM calls a shell when launched any shell commands can can also be used in a Slurm script. 
 * As an example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other Slurm job. The jobscript and data files are at: `/usr/local/common/HPCshells/NAMD/drugdock.Slurm`
 -- *Slide End* --
 
