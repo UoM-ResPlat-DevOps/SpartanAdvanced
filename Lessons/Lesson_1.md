@@ -9,7 +9,7 @@
 
 -- *Slide* --
 ### Part 0: Slide Repository
-* Terminal projection via https://shellshare.net/
+* Terminal projection via https://shellshare.net/r/Spartan
 * A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/HPCshells`
 -- *Slide End* --
 
@@ -232,7 +232,7 @@
 -- *Slide* --
 ### Part 2:  Text Manipulation with sed
 * Sed makes text transformation on an input stream (e.g., file) and has the general form of `sed [OPTION] [SCRIPT] [INPUT]`. Some common options are `e` (multiple scripts per command), `-f` (add script file) and `-i` (in-place editing).
-* The general form of a script is `Command/RegExp/Replacement/Flags`. The most common command is `s` for `substitute`, and the most common flags are `g` for global replacement thoughout each line and `I` to ignore case. 
+* The general form of a script is `Command/RegExp/Replacement/Flags`. The most common command is `s` for `substitute`, and the most common flags are `g` (global) or a number for replacement thoughout each line and `I` to ignore case. 
 * Sed has alternative three alternative delimiters in its scripts; '/', ':', or '|'
 -- *Slide End* --
 

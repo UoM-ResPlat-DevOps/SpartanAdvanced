@@ -54,7 +54,7 @@
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 0: Slide Repository
-* Terminal projection via https://shellshare.net/
+* Terminal projection via https://shellshare.net/r/Spartan
 * A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/HPCshells`
 </script></section>
 <section data-markdown><script type="text/template">
@@ -209,8 +209,8 @@
 ### Part 2: Regular Expressions and Metacharacters cont..
 | Metacharacter | Explanation        | Example   |
 |---------------|--------------------|-----------|
-| .             | Any single character       | `grep '^...row...' /usr/share/dict/words` |
-| *             | Match zero plus characters | `grep '^...row*' /usr/share/dict/words`   |
+| .             | Any single character       | `grep '^...row...$' /usr/share/dict/words` |
+| *             | Match zero plus preceding characters | `grep '^...row.*' /usr/share/dict/words`   |
 | [ ]           | Matches one in the set                 | `grep '^[Pp].row..$' /usr/share/dict/words`    |
 </script></section>
 <section data-markdown><script type="text/template">
@@ -219,19 +219,20 @@
 |---------------|--------------------|-----------|
 | [x-y]		| Matches on in the range                | `grep '^[s-u].row..$' /usr/share/dict/words`   |
 | [^ ]          | Matches one character not in the set   |  `grep '^[^a].row..$' /usr/share/dict/words`   |
+| `|`     | Logical OR   |  `grep '^[^a|P].row..$' /usr/share/dict/words`   |
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 2: Regular Expressions and Metacharacters cont..
 | Metacharacter | Explanation        | Example   |
 |---------------|--------------------|-----------|
-| [^x-y]        | Matches any character not in the range | `grep '^[^a-z] .row..$' /usr/share/dict/words` |
+| [^x-y]        | Matches any character not in the range | `grep '^[^a-z].row..$' /usr/share/dict/words` |
 | \             | Escape a metacharacter |  `grep '^A\.$' /usr/share/dict/words`
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 2: Regular Expressions and Metacharacters cont...
 * The 'matches one in the set' metacharacter has a number of options that one may find useful.
 
-| Metacharater | Explanation                                             |
+| Metacharacter| Explanation                                             |
 |--------------|---------------------------------------------------------|
 | [:digit:]    | Only the digits 0 to 9                                  |
 | [:alnum:]    | Any alphanumeric character 0 to 9 OR A to Z or a to z.  | 
@@ -245,7 +246,7 @@
 <section data-markdown><script type="text/template">
 ### Part 2:  Text Manipulation with sed
 * Sed makes text transformation on an input stream (e.g., file) and has the general form of `sed [OPTION] [SCRIPT] [INPUT]`. Some common options are `e` (multiple scripts per command), `-f` (add script file) and `-i` (in-place editing).
-* The general form of a script is `Command/RegExp/Replacement/Flags`. The most common command is `s` for `substitute`, and the most common flags are `g` for global replacement thoughout each line and `I` to ignore case. 
+* The general form of a script is `Command/RegExp/Replacement/Flags`. The most common command is `s` for `substitute`, and the most common flags are `g` (global) or a number for replacement thoughout each line and `I` to ignore case. 
 * Sed has alternative three alternative delimiters in its scripts; '/', ':', or '|'
 </script></section>
 <section data-markdown><script type="text/template">
@@ -253,7 +254,7 @@
 | Command                | Explanation                                                              |
 |------------------------|:-------------------------------------------------------------------------|
 | `sed 's/^/     /'`       | Insert five whitespaces at the beginning of every line.                  | 
-| `sed '/baz/s/foo/bar/g' |` Substitute all instances of 'foo' with 'bar' on lines that start with 'baz' |
+| `sed '/baz/s/foo/bar/g'` |  Substitute all instances of 'foo' with 'bar' on lines that start with 'baz' |
 | `sed '/baz/!s/foo/bar/g'`| Substitute "foo" with "bar" except for lines which contain "baz" |
 | `sed /^$/d`    | Delete all blank lines.                                                    |
 | `sed s/ *$//` | Delete all spaces at the end of every line.             |
@@ -344,7 +345,7 @@ http://sed.sourceforge.net/sed1line.txt
 | Value       | Explanation                                                                     |
 |-------------|:--------------------------------------------------------------------------------|
 | ctrl+w      | Remove word behind cursor.                                                      | 
-| ctrl+u      | Delete everything from cursor to beginning of the                               | 
+| ctrl+u      | Delete everything from cursor to beginning of the line                          | 
 | alt+f       | Go forward to the end of the previous word                                      | 
 | alt+b       | Move cursor back to the beginning of the previous word                          | 
 | ctrl+d      | Quick logout.                                                                   | 
@@ -428,7 +429,7 @@ http://sed.sourceforge.net/sed1line.txt
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 3: Scripting Conventions cont...
-* Liberally comment your code so that other readers know what it does. Use explicit variable names. Use output to tell the user what is happening. Use variables when appropriate rather than hard-coded paths. Provide exit statements to clear variables.
+* Liberally comment your code so that other readers know what it does. Use explicit variable names. Use output to tell the user what is happening. Use variables when appropriate rather than hard-coded paths. Provide exit statements to clear variables and provide an error code.
 * A common conditional, and sadly often forgotten, is whether or not a script has the requiste files for input and output specified!
 * Invite user input with the 'read' command; protect against escape characters with the 'raw' option.
 </script></section>
@@ -463,7 +464,7 @@ http://sed.sourceforge.net/sed1line.txt
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 4: Shell Scripting Example with PBS and Slurm
-* Because SLRUM calls a shell when launched any shell commands can can also be used in a Slurm script. 
+* Because SLURM calls a shell when launched any shell commands can can also be used in a Slurm script. 
 * As an example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other Slurm job. The jobscript and data files are at: `/usr/local/common/HPCshells/NAMD/drugdock.Slurm`
 </script></section>
 <section data-markdown><script type="text/template">
