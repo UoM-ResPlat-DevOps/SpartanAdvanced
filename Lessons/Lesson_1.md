@@ -29,6 +29,10 @@
 -- *Slide End* --
 
 -- *Slide* --
+<img src="https://imgs.xkcd.com/comics/tar.png" />
+-- *Slide End* --
+
+-- *Slide* --
 ### Part 1: Archiving and Compressing Files cont ...
 * Another common compression algorithm that Linux users are likely to encounter with regularity is bzip2.
 * Efficient in size, slower in decompression speed.
@@ -227,6 +231,10 @@
 -- *Slide* --
 ### Part 2: Regular Expressions and Metacharacters cont...
 * Metacharacters can be combined in an interesting manner with grep options. Examples; (i) using grep to count the number of empty lines in a file; `grep -c '^$' filename` (ii) a search for words with no vowels; `grep -v "[aeiou]" /usr/share/dict/words`
+-- *Slide End* --
+
+-- *Slide* --
+<img src="https://imgs.xkcd.com/comics/regular_expressions.png" />
 -- *Slide End* --
 
 -- *Slide* --
