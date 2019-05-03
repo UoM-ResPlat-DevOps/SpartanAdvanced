@@ -118,6 +118,10 @@
 -- *Slide End* --
 
 -- *Slide* --
+<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SpartanAdvanced/master/Images/jamesbond007.jpg" />
+-- *Slide End* --
+
+-- *Slide* --
 ### Part 1: File Attributes, Types, Ownership cont
 * If you have root permission, you can make use of the `chown` (change owner) command. Usually group is optional on the grounds that users are usually provided ownership. A common use is to provide ownership to web-writeable directories e.g., (`chown -R www-data:www-data /var/www/files`). 
 -- *Slide End* --
@@ -395,6 +399,10 @@ http://sed.sourceforge.net/sed1line.txt
 ### Part 3: Scripts with Loops cont...
 * Examples of these scripts are in  `/usr/local/common/HPCshells/loops.txt`
 * These can be converted to permanent scripts e.g., `/usr/local/common/HPCshells/lowercaserename.sh` and `/usr/local/common/HPCshells/sshtrigger.sh`
+-- *Slide End* --
+
+-- *Slide* --
+<img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SpartanAdvanced/master/Images/whilenotedge.jpg" />
 -- *Slide End* --
 
 -- *Slide* --
