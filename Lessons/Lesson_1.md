@@ -42,6 +42,15 @@
 -- *Slide End* --
 
 -- *Slide* --
+### Part 1: Archiving and Compressing Files cont ...
+* But wait, there's more! A third common compression is LZMA2 which is used in xz files.
+* Like bzip2 efficient in size, slower in decompression speed.
+* To create a xz tarball: `tar cvfJ class.tar.xz class/`
+* To check the contents: `tar tf class.tar.xz` 
+* To extract and uncompress the tarball : `tar xvf class.tar.xz`
+-- *Slide End* --
+
+-- *Slide* --
 ### Part 1: Redirections and Tee
 * A core principle of UNIX-like operating systems is that the output of one program should be usable as the input to another.
 * The introductory lesson included basic commands for redirection, concatenation, and piping.
