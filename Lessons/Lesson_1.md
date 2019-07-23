@@ -10,7 +10,7 @@
 -- *Slide* --
 ### Part 0: Slide Repository
 * Terminal projection via https://shellshare.net/r/Spartan
-* A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/HPCshells`
+* A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/SpartanAdvanced`
 -- *Slide End* --
 
 -- *Slide* --

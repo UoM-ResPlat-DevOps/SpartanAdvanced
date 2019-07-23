@@ -55,7 +55,7 @@
 <section data-markdown><script type="text/template">
 ### Part 0: Slide Repository
 * Terminal projection via https://shellshare.net/r/Spartan
-* A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/HPCshells`
+* A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/SpartanAdvanced`
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1:  Archiving and Compressing Files
@@ -80,6 +80,14 @@
 * To create a bzip2 tarball: `tar cvfj class.tar.bz2 class/`
 * To check the contents: `tar tjf class.tar.gz` 
 * To extract and uncompress the tarball : `tar xvf class.tar.bz2`
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: Archiving and Compressing Files cont ...
+* But wait, there's more! A third common compression is LZMA2 which is used in xz files.
+* Like bzip2 efficient in size, slower in decompression speed.
+* To create a xz tarball: `tar cvfJ class.tar.xz class/`
+* To check the contents: `tar tf class.tar.xz` 
+* To extract and uncompress the tarball : `tar xvf class.tar.xz`
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: Redirections and Tee
