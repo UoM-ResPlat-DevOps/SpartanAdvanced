@@ -10,7 +10,7 @@
 -- *Slide* --
 ### Part 0: Slide Repository
 * Terminal projection via https://shellshare.net/r/Spartan
-* A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/SpartanAdvanced`
+* A copy of the slides and sample code is available at: `https://github.com/UoM-ResPlat-DevOps/SpartanAdvanced`
 -- *Slide End* --
 
 -- *Slide* --
@@ -29,7 +29,7 @@
 -- *Slide End* --
 
 -- *Slide* --
-<img src="https://imgs.xkcd.com/comics/tar.png" />
+<img src="https://imgs.xkcd.com/comics/tar.png" height="125%" width="125%" />
 -- *Slide End* --
 
 -- *Slide* --
@@ -52,15 +52,15 @@
 
 -- *Slide* --
 ### Part 1: Redirections and Tee
-* A core principle of UNIX-like operating systems is that the output of one program should be usable as the input to another.
+* A principle of UNIX-like systems is that the output of one program can be used as the input for another.
 * The introductory lesson included basic commands for redirection, concatenation, and piping.
-* Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R /home/lev/data) <(ls -R /home/lev/workdata)`
+* Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R (/home/lev/data/) <(ls -R /home/lev/workdata/)`
 * The default behaviour is to accept inputs from the terminal (standard input) and display the results, either output or errors, to the terminal (standard output). 
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 1: Redirections and Tee cont..
-* Redirections can be further modified by placing a number next immediately before the redirector, which affects which stream is being used for redirection. These numbers are 0 for standard input, 1 for standard output and 2 for standard error. e.g., `ls -d /home/username/seismic 2> error.txt`
+* Redirections can be further modified by placing a file descriptor (fd) next immediately before the redirector. These fd numbers are 0 (standard input), 1 (standard output), 2 (standard error). e.g., `ls -d /home/username/seismic 2> error.txt`
 * Standard error can also to be redirected to the same destination that standard output is directed to using 2>&1; it merges stderr (2) into stdout (1).
 -- *Slide End* --
 
@@ -76,14 +76,14 @@
 |`command > file`                   | Redirect standard output to a file                             |
 |`command >> file`                  | Redirect standard output to end of file                        |
 |`command 2> file`                  | Redirect standard error to a file                              |
-|`command > file 2>&1`              | Redirect standard output and standard error to file            |
+|`command -options < file`          | Redirect a file as standard input to a command                 |
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 1: Redirections and Tee Summary cont..
 | Redirection Syntax                | Explanation                                                    |
 |:----------------------------------|:--------------------------------------------------------------:|
-|`command -options < file`          | Redirect a file as standard input to a command                 |
+|`command > file 2>&1`              | Redirect standard output and standard error to file            |
 |`command >> file 2>&1`             | Redirect standard and standard error to end of file            |
 | <code>command &#124; command2</code>  | Pipe standard output to a second command                   |
 -- *Slide End* --
