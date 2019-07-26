@@ -112,7 +112,7 @@
 -- *Slide* --
 ### Part 1: File Attributes, Types, Ownership cont
 * There is "t", "save text attribute", or more commonly known as "sticky bit" in the execute field allows a user to delete or modify only those files in the directory that they own or have write permission for. A typical example is the /tmp directory, which is world-writeable.
-* The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : chmod [option] [symbolic | octal] file. For options, the most common is `-R` or `--recursive` which changes files and directories recursively.
+* The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : chmod [option] [symbolic | octal] file. For options, the most common is `-R` which changes files and directories recursively.
 -- *Slide End* --
 
 -- *Slide* --
@@ -123,7 +123,8 @@
 
 -- *Slide* --
 ### Part 1: File Attributes, Types, Ownership cont
-* In octal notation a three or four digit base-8 value is presented derived from the sum of the component bits, so the equivalent of "r" in symbolic notation adds 4 in octal notation (binary 100), "w" in symbolic notation adds 2 in octal notation (binary 010) and "x" adds 1 in octal notation (binary 001). No permissions adds 0 (binary 000). For special modes the first octal digit is either set to 4 (setuid), 2 (setgid), or 1 (sticky). The sum of the three (or four components) thus makes up an alternative exact notation for the chmod command.
+* In octal notation a three or four digit base-8 value is presented derived from the sum of the component bits, so the equivalent of "r" in symbolic notation adds 4 in octal notation (binary 100), "w" in symbolic notation adds 2 in octal notation (binary 010) and "x" adds 1 in octal notation (binary 001). No permissions adds 0 (binary 000). For special modes the first octal digit is either set to 4 (setuid), 2 (setgid), or 1 (sticky). 
+* The sum of the three (or four components) thus makes up an alternative exact notation for the chmod command (e.g., 0640. 750 etc).
 -- *Slide End* --
 
 -- *Slide* --
@@ -173,7 +174,7 @@
 
 -- *Slide* --
 ### Part 1: System Information Commands
-* The du "disk usage' command has the standard syntax of `du [options] [file]`. Without any arguments du will print all files, entering directories recursively, and provide output in kilobytes. Most commonly experessed as `du -sh` (disk usage, summary form, human readable)
+* The du "disk usage' command has the standard syntax of `du [options] [file]`. Without arguments `du` will print all files, entering directories recursively, with output in kilobytes. Most commonly experessed as `du -sh` (disk usage, summary form, human readable)
 *  The following is a handy use of xargs is to parse a directory list and output the results to a file. The command script below runs a disk usage in summary, sorts in order of size and exports to the file diskuse.txt. The "\n" is to ignore spaces in filenames.
 `du -sk * | sort -nr | cut -f2 | xargs -d "\n" du -sh  > diskuse.txt`
 -- *Slide End* --
@@ -187,8 +188,7 @@
 
 -- *Slide* --
 ### Part 1: System Information Commands cont...
-* Another useful source for system information is the /proc directory. The directory doesn't actually contain 'real' files but runtime system information. Examples: `less /proc/cpuinfo`, `less /proc/filesystems`, `less /proc/uptime`,
-`less /proc/loadavg`, `less /proc/meminfo`, `less /proc/mounts`, `less /proc/partitions`
+* Another useful source for system information is the /proc directory. The directory doesn't actually contain 'real' files but runtime system information. Examples: `less /proc/cpuinfo`, `less /proc/filesystems`, `less /proc/uptime`, `less /proc/meminfo`, `less /proc/mounts`, `less /proc/partitions`
 * The command lscpu will provide information about the processor architecture as well gathered from /proc/cpuinfo including the number of CPUs, threads, cores, and sockets. 
 -- *Slide End* --
 
@@ -209,7 +209,7 @@
 |---------------|--------------------|-----------|
 | .             | Any single character       | `grep '^...row...$' /usr/share/dict/words` |
 | *             | Match zero plus preceding characters | `grep '^...row.*' /usr/share/dict/words`   |
-| [ ]           | Matches one in the set                 | `grep '^[Pp].row..$' /usr/share/dict/words`    |
+| [ ]           | Matches one in the set        | `grep '^[Pp]' /usr/share/dict/words`    |
 -- *Slide End* --
 
 -- *Slide* --
@@ -218,7 +218,7 @@
 |---------------|--------------------|-----------|
 | [x-y]		| Matches on in the range                | `grep '^[s-u].row..$' /usr/share/dict/words`   |
 | [^ ]          | Matches one character not in the set   |  `grep '^[^a].row..$' /usr/share/dict/words`   |
-| `|`     | Logical OR   |  `grep '^[^a|P].row..$' /usr/share/dict/words`   |
+| &#124;     | Logical OR   |  `grep '^[^a &#124; P].row..$' /usr/share/dict/words`   |
 -- *Slide End* --
 
 -- *Slide* --
