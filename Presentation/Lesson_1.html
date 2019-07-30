@@ -188,8 +188,25 @@
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Manipulation Commands cont...
-* Sort will organise a text file into an order specified by options and output to a specific file, if desired. The general syntax is `sort [option] [input file] -o [filename]`. Some of the options include -b (ignore beginning spaces), -d (use dictionary order, ignore punctuation), -g (general, natural language), -m (merge two input files into one sorted output, -r (sort in reverse order) and -V (version number order).
-* To filter repeated lines in a text file use uniq. The standard syntax is `uniq [options] [input file] [output file]`. 
+* The `cut` command copies a secion from each line of a file, based on the arguments parsed to it, whereas `paste` merges lines of files together. 
+* Can operate on characters, delimiters (tab by default), or fields. 
+`cut -d',' -f3 quakes.csv > latitude.txt` `cut -d',' -f4 quakes.csv > longitude.txt` `paste -d " " latitude.txt longitude.txt > quakelist.txt`
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: File Manipulation Commands cont...
+* A variation on the `paste` command is the `join` command. Like paste, `join` will take two files and combine the fields. Unlike `paste` however `join` will only do if there is a common field. The common field however is only included once in the standard output.
+* Very handy for combining tables with a common field!
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: File Manipulation Commands cont...
+* The `sort` command will organise a text file into an order specified by options. The general syntax is `sort [option] [input file] -o [filename]`.
+* Some of the options include -b (ignore beginning spaces), -d (use dictionary order, ignore punctuation), -m (merge two input files into one sorted output, and -r (sort in reverse order). 
+* An interesting option for sort is for natural language ordering (e.g., 1, 10, 2, 20); for this case use `sort -g` filename (generic) or `-V` (version number).
+* The `sort` command also has a very useful option for sorting by columns. Delimiters can be established with the -t option (e.g., `-t,` for comma separated values) and fields with the the `-k` option (e.g., sort by the second field in numeric order in a comma separated file would be sort -t, -nk2 fiename.csv)
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: File Manipulation Commands cont...
+* To filter repeated lines in a text file use uniq. The standard syntax is `uniq [options] [input file] [output file]`. A simple example is `uniq repeats.txt unique.txt`. It is sometimes used with `sort` e.g., `sort repeats.txt | uniq > sortuniq.txt`. The combination of sort and uniq can be used to remove from the content file in the removals files(e.g., `sort content.txt removals.txt | uniq -u`).
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: System Information Commands
