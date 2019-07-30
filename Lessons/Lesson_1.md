@@ -10,7 +10,7 @@
 -- *Slide* --
 ### Part 0: Slide Repository
 * Terminal projection via https://shellshare.net/r/Spartan
-* A copy of the slides and same code is available at: `https://github.com/UoM-ResPlat-DevOps/SpartanAdvanced`
+* A copy of the slides and sample code is available at: `https://github.com/UoM-ResPlat-DevOps/SpartanAdvanced`
 -- *Slide End* --
 
 -- *Slide* --
@@ -29,7 +29,7 @@
 -- *Slide End* --
 
 -- *Slide* --
-<img src="https://imgs.xkcd.com/comics/tar.png" />
+<img src="https://imgs.xkcd.com/comics/tar.png" height="125%" width="125%" />
 -- *Slide End* --
 
 -- *Slide* --
@@ -52,15 +52,15 @@
 
 -- *Slide* --
 ### Part 1: Redirections and Tee
-* A core principle of UNIX-like operating systems is that the output of one program should be usable as the input to another.
+* A principle of UNIX-like systems is that the output of one program can be used as the input for another.
 * The introductory lesson included basic commands for redirection, concatenation, and piping.
-* Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R /home/lev/data) <(ls -R /home/lev/workdata)`
+* Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R (/home/lev/data/) <(ls -R /home/lev/workdata/)`
 * The default behaviour is to accept inputs from the terminal (standard input) and display the results, either output or errors, to the terminal (standard output). 
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 1: Redirections and Tee cont..
-* Redirections can be further modified by placing a number next immediately before the redirector, which affects which stream is being used for redirection. These numbers are 0 for standard input, 1 for standard output and 2 for standard error. e.g., `ls -d /home/username/seismic 2> error.txt`
+* Redirections can be further modified by placing a file descriptor (fd) next immediately before the redirector. These fd numbers are 0 (standard input), 1 (standard output), 2 (standard error). e.g., `ls -d /home/username/seismic 2> error.txt`
 * Standard error can also to be redirected to the same destination that standard output is directed to using 2>&1; it merges stderr (2) into stdout (1).
 -- *Slide End* --
 
@@ -76,14 +76,14 @@
 |`command > file`                   | Redirect standard output to a file                             |
 |`command >> file`                  | Redirect standard output to end of file                        |
 |`command 2> file`                  | Redirect standard error to a file                              |
-|`command > file 2>&1`              | Redirect standard output and standard error to file            |
+|`command -options < file`          | Redirect a file as standard input to a command                 |
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 1: Redirections and Tee Summary cont..
 | Redirection Syntax                | Explanation                                                    |
 |:----------------------------------|:--------------------------------------------------------------:|
-|`command -options < file`          | Redirect a file as standard input to a command                 |
+|`command > file 2>&1`              | Redirect standard output and standard error to file            |
 |`command >> file 2>&1`             | Redirect standard and standard error to end of file            |
 | <code>command &#124; command2</code>  | Pipe standard output to a second command                   |
 -- *Slide End* --
@@ -112,7 +112,7 @@
 -- *Slide* --
 ### Part 1: File Attributes, Types, Ownership cont
 * There is "t", "save text attribute", or more commonly known as "sticky bit" in the execute field allows a user to delete or modify only those files in the directory that they own or have write permission for. A typical example is the /tmp directory, which is world-writeable.
-* The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : chmod [option] [symbolic | octal] file. For options, the most common is `-R` or `--recursive` which changes files and directories recursively.
+* The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : chmod [option] [symbolic | octal] file. For options, the most common is `-R` which changes files and directories recursively.
 -- *Slide End* --
 
 -- *Slide* --
@@ -123,7 +123,8 @@
 
 -- *Slide* --
 ### Part 1: File Attributes, Types, Ownership cont
-* In octal notation a three or four digit base-8 value is presented derived from the sum of the component bits, so the equivalent of "r" in symbolic notation adds 4 in octal notation (binary 100), "w" in symbolic notation adds 2 in octal notation (binary 010) and "x" adds 1 in octal notation (binary 001). No permissions adds 0 (binary 000). For special modes the first octal digit is either set to 4 (setuid), 2 (setgid), or 1 (sticky). The sum of the three (or four components) thus makes up an alternative exact notation for the chmod command.
+* In octal notation a three or four digit base-8 value is presented derived from the sum of the component bits, so the equivalent of "r" in symbolic notation adds 4 in octal notation (binary 100), "w" in symbolic notation adds 2 in octal notation (binary 010) and "x" adds 1 in octal notation (binary 001). No permissions adds 0 (binary 000). For special modes the first octal digit is either set to 4 (setuid), 2 (setgid), or 1 (sticky). 
+* The sum of the three (or four components) thus makes up an alternative exact notation for the chmod command (e.g., 0640. 750 etc).
 -- *Slide End* --
 
 -- *Slide* --
@@ -193,7 +194,7 @@
 
 -- *Slide* --
 ### Part 1: System Information Commands
-* The du "disk usage' command has the standard syntax of `du [options] [file]`. Without any arguments du will print all files, entering directories recursively, and provide output in kilobytes. Most commonly experessed as `du -sh` (disk usage, summary form, human readable)
+* The du "disk usage' command has the standard syntax of `du [options] [file]`. Without arguments `du` will print all files, entering directories recursively, with output in kilobytes. Most commonly experessed as `du -sh` (disk usage, summary form, human readable)
 *  The following is a handy use of xargs is to parse a directory list and output the results to a file. The command script below runs a disk usage in summary, sorts in order of size and exports to the file diskuse.txt. The "\n" is to ignore spaces in filenames.
 `du -sk * | sort -nr | cut -f2 | xargs -d "\n" du -sh  > diskuse.txt`
 -- *Slide End* --
@@ -207,8 +208,7 @@
 
 -- *Slide* --
 ### Part 1: System Information Commands cont...
-* Another useful source for system information is the /proc directory. The directory doesn't actually contain 'real' files but runtime system information. Examples: `less /proc/cpuinfo`, `less /proc/filesystems`, `less /proc/uptime`,
-`less /proc/loadavg`, `less /proc/meminfo`, `less /proc/mounts`, `less /proc/partitions`
+* Another useful source for system information is the /proc directory. The directory doesn't actually contain 'real' files but runtime system information. Examples: `less /proc/cpuinfo`, `less /proc/filesystems`, `less /proc/uptime`, `less /proc/meminfo`, `less /proc/mounts`, `less /proc/partitions`
 * The command lscpu will provide information about the processor architecture as well gathered from /proc/cpuinfo including the number of CPUs, threads, cores, and sockets. 
 -- *Slide End* --
 
@@ -229,7 +229,7 @@
 |---------------|--------------------|-----------|
 | .             | Any single character       | `grep '^...row...$' /usr/share/dict/words` |
 | *             | Match zero plus preceding characters | `grep '^...row.*' /usr/share/dict/words`   |
-| [ ]           | Matches one in the set                 | `grep '^[Pp].row..$' /usr/share/dict/words`    |
+| [ ]           | Matches one in the set        | `grep '^[Pp]' /usr/share/dict/words`    |
 -- *Slide End* --
 
 -- *Slide* --
@@ -238,7 +238,7 @@
 |---------------|--------------------|-----------|
 | [x-y]		| Matches on in the range                | `grep '^[s-u].row..$' /usr/share/dict/words`   |
 | [^ ]          | Matches one character not in the set   |  `grep '^[^a].row..$' /usr/share/dict/words`   |
-| `|`     | Logical OR   |  `grep '^[^a|P].row..$' /usr/share/dict/words`   |
+| &#124;     | Logical OR   |  `grep '^[^a &#124; P].row..$' /usr/share/dict/words`   |
 -- *Slide End* --
 
 -- *Slide* --

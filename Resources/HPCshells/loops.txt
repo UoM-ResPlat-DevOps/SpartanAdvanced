@@ -1,0 +1,67 @@
+
+# The following are simple examples of a "for" loop.
+# Note the use of command substitution by using $(command); sometimes you will find the use of backticks instead (e.g., for i in * ; do mv $i `echo $i | tr "A-Z" "a-z"` ; done); this is not recommended.
+
+for file in ./*.mp3 ; do ffmpeg -i "${file}" "${file/%mp3/ogg}" ; done
+for item in ./*.jpeg ; do convert "$item" "${item%.*}.png" ; done
+for item in ./*; do convert "$item" -define jpeg:extent=512kb "${item%.*}.jpg" ; done
+
+# Loops can be applied in a step-wise manner.
+
+$ cd ~/Genomics/shell_data
+$ for filename in *.fastq
+> do
+> head -n 2 ${filename} >> seq_info.txt
+> done
+
+# Basename in a loop.
+# Basename is removing a uniform part of a name from a list of files. 
+# In this case remove the .fastq extension and echo the output.
+
+$ for filename in *.fastq
+> do
+> name=$(basename ${filename} .fastq)
+> echo ${name}
+> done
+
+# What would happen if backticks were used instead of $() for shell substitution? What if someone mistook the backticks for single quotes?
+
+for item in ./* ; do mv $item $(echo $item | tr "A-Z" "a-z") ; done
+
+# What's wrong with spaces in filenames?
+
+touch "This is a long file name"
+for item in $(ls ./*); do echo ${item}; done
+
+# The following examples remove spaces from filenames and apostrophes. The script is designed to prevent expansion from the wildcard, but remember that a `mv` command will overwrite existing files that have the same name.
+
+for item in ./*; do mv "$item" "$(echo "$item" | tr -d " ")"; done
+
+# Finally a few simple examples of loops with conditional tests.
+
+x=1; while [ $x -le 5 ]; do echo "While-do count up $x"; x=$(( $x + 1 )); done
+x=5; until [ $x -le 0 ]; do echo "Until-do count down $x"; x=$(( $x - 1 )); done
+x=1; until [ $x = 6 ]; do echo "Until-do count up $x"; x=$(( $x + 1 )); done
+
+# A while loop that reads in data from a file and runs a command on that data.
+# This is what we used to originally set quotas on home and project directories.
+# The 'read' command reads one line from standard input or a specified file.
+
+while read line; do sleep 5; ./setquota.sh $line; done < quotalist.txt
+
+# when searching for lines that contain a particular sequence in a file (e.g., from grep), reading those lines for processing can be accomplished with the something like the following:
+
+grep sequence datafile.dat | while read -r line ; do   
+    echo "Processing $line"   
+    # Processing code #   
+done   
+
+# Curly braces are used to encapsulate statements or variables with {} or ${}
+
+var		# Set a variable
+$var		# Invoke the variable
+${var}bar	# Invoke the variable, append "bar".
+
+# Example of determining jobs running on a set of nodes.
+
+for host in "spartan-rc"{001..10}; do squeue -w $host; done

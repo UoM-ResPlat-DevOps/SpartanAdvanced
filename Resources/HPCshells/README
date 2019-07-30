@@ -1,0 +1,5 @@
+AWK examples, from Supercomputing with Linux, Lev Lafayette, VPAC, 2015
+
+awk '$7=="A" { ++count } END { print count }' simple1.txt
+awk '{sum+=$7} END {print sum}' simple2.txt
+awk '{ for(i=1; i<=NF;i++) j+=$i; print j; j=0 }' simple3.txt
