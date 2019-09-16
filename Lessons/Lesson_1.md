@@ -51,6 +51,13 @@
 -- *Slide End* --
 
 -- *Slide* --
+### Part 1: Viewing tarballs
+* Some commands allow reading tarballs without extraction. 
+`zcat class.tgz | less` or `zless class.tgz` or `bzless` or `xzless`
+`zgrep '#include <mpi.h>' class.tgz| less` or `bzgrep` or `xzgrep`
+-- *Slide End* --
+
+-- *Slide* --
 ### Part 1: Redirections and Tee
 * A principle of UNIX-like systems is that the output of one program can be used as the input for another.
 * The introductory lesson included basic commands for redirection, concatenation, and piping.
