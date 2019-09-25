@@ -191,17 +191,23 @@
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Manipulation Commands cont...
-* Split can be used to split large files into smaller components. The general syntax is `split [OPTION]... [INPUT [PREFIX]]`. Common options include byte (-b #) or linecount (-l #, default of 1000) for the new files. The input is the filename and the prefix is the output, PREFIXaa, PREFIXab etc.
+* Split can be used to split large files into smaller components. The general syntax is `split [OPTION]... [INPUT [PREFIX]]`. Common options include byte (-b #) or linecount (-l #, default of 1000) for the new files. The input is the filename and the prefix is the output, PREFIXaa, PREFIXab etc, or with numbers (-d) 
+* `split -l 500 -d shakes.csv splitfile)`
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: File Manipulation Commands cont...
+* The `csplit` command is like split, but breaks up files according to context with the general syntax of `csplit [OPTION]... FILE PATTERN`. A common option is -f (prefix). Common pattern criteria includes integer line number and regular expressions and the use of '{#}' to repeat the pattern. e.g., split a file according to the -45 latitude.
+* `csplit -f 45latitude shakes.csv /-45./ '{*}'`
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Manipulation Commands cont...
 * The `cut` command copies a secion from each line of a file, based on the arguments parsed to it, whereas `paste` merges lines of files together. 
 * Can operate on characters, delimiters (tab by default), or fields. 
-`cut -d',' -f3 quakes.csv > latitude.txt` `cut -d',' -f4 quakes.csv > longitude.txt` `paste -d " " latitude.txt longitude.txt > quakelist.txt`
+`cut -d',' -f3 shakes.csv > latitude.txt` `cut -d',' -f4 shakes.csv > longitude.txt` `paste -d " " latitude.txt longitude.txt > shakeslist.txt`
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Manipulation Commands cont...
-* A variation on the `paste` command is the `join` command. Like paste, `join` will take two files and combine the fields. Unlike `paste` however `join` will only do if there is a common field. The common field however is only included once in the standard output.
+* A variation on the `paste` command is the `join` command. Like paste, `join` will take two files and combine the fields. Unlike `paste` however `join` will only operate if there is a common field. The common field however is only included once in the standard output.
 * Very handy for combining tables with a common field!
 </script></section>
 <section data-markdown><script type="text/template">

@@ -189,7 +189,7 @@
 
 -- *Slide* --
 ### Part 1: File Manipulation Commands cont...
-* A variation on the `paste` command is the `join` command. Like paste, `join` will take two files and combine the fields. Unlike `paste` however `join` will only do if there is a common field. The common field however is only included once in the standard output.
+* A variation on the `paste` command is the `join` command. Like paste, `join` will take two files and combine the fields. Unlike `paste` however `join` will only operate if there is a common field. The common field however is only included once in the standard output.
 * Very handy for combining tables with a common field!
 -- *Slide End* --
 
