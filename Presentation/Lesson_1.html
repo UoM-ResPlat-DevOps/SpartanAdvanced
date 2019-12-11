@@ -99,8 +99,11 @@
 ### Part 1: Redirections and Tee
 * A principle of UNIX-like systems is that the output of one program can be used as the input for another.
 * The introductory lesson included basic commands for redirection, concatenation, and piping.
-* Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R (/home/lev/data/) <(ls -R /home/lev/workdata/)`
 * The default behaviour is to accept inputs from the terminal (standard input) and display the results, either output or errors, to the terminal (standard output). 
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: Redirections and Tee
+* Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R (/home/lev/data/) <(ls -R /home/lev/workdata/)`
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: Redirections and Tee cont..
@@ -138,28 +141,36 @@
 <section data-markdown><script type="text/template">
 ### Part 1: File Attributes, Types, Ownership
 * The `ls -l` command illustrates file ownership (user, group), file type, permissions, and date when last modified.
-* The first character is type; a "-" for a regular file, a "d" for a directory, and "l" for a symbolic link. Less common file types include "b" for block devices (e.g., hard drives, ram etc), "c" for character devices which stream data one character at a time (e.g., mice, keyboards, virtual terminals).
-* In UNIX-like operating systems devices are a type of file as well, and are structured under the `/dev` directory. 
+* The first character is type; a "-" for a regular file, a "d" for a directory, and "l" for a symbolic link. 
+* Devices are expressed like files: "b" for block devices (e.g., hard drives, ram etc), "c" for character devices which stream data one character at a time (e.g., mice, keyboards, virtual terminals)
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Attributes, Types, Ownership
 *  Permissions are expressed in a block of three for "user, group, others" and for permission type (read r, write w, execute x). Executable also implies 'searching', thus "x" is usually found for directories as well.
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: File Attributes, Types, Ownership
 * An "s" in the execute field indicated setuid. Causes any user or process to have access to system resources as though they are the owner of the file. If the bit is set for the group, the set group ID bit is set and the user running the program is given access based on access permission for the group the file belongs to.
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Attributes, Types, Ownership cont
 * There is "t", "save text attribute", or more commonly known as "sticky bit" in the execute field allows a user to delete or modify only those files in the directory that they own or have write permission for. A typical example is the /tmp directory, which is world-writeable.
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: File Attributes, Types, Ownership cont
 * The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : chmod [option] [symbolic | octal] file. For options, the most common is `-R` which changes files and directories recursively.
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Attributes, Types, Ownership cont
 * For symbolic notation, first establish the user reference, either "u" (user, the owner of the file), "g" (group, members of the file's group), "o" (others, neither the owner or group members), or "a" (all). If a user reference is not specified the operator and mode applies to all.
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: File Attributes, Types, Ownership cont
 * Then determine the operation; either "+" (add the mode), "-" remove the mode, or "=" (equals, mode only equals that expression). Finally, specify the mode permissions as described above, "r" (read), "w" (write), "x" (execute), "s" (setuid, setgid), "t" (sticky). 
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Attributes, Types, Ownership cont
-* In octal notation a three or four digit base-8 value is presented derived from the sum of the component bits, so the equivalent of "r" in symbolic notation adds 4 in octal notation (binary 100), "w" in symbolic notation adds 2 in octal notation (binary 010) and "x" adds 1 in octal notation (binary 001). No permissions adds 0 (binary 000). For special modes the first octal digit is either set to 4 (setuid), 2 (setgid), or 1 (sticky). 
-* The sum of the three (or four components) thus makes up an alternative exact notation for the chmod command (e.g., 0640. 750 etc).
+* In octal notation a three or four digit base-8 value is the sum of the component bits. The value "r" in symbolic notation adds 4 in octal notation (binary 100), "w" in symbolic notation adds 2 in octal notation (binary 010) and "x" adds 1 in octal notation (binary 001). No permissions adds 0 (binary 000). For special modes the first octal digit is either set to 4 (setuid), 2 (setgid), or 1 (sticky). 
 </script></section>
 <section data-markdown><script type="text/template">
 <img src="https://raw.githubusercontent.com/UoM-ResPlat-DevOps/SpartanAdvanced/master/Images/jamesbond007.jpg" />
@@ -176,13 +187,16 @@
 ### Part 1: Links and File Content
 * The ln command creates a link, associating one file with another. There are two basic types; a hard link (the default) and a symbolic link. 
 * The core difference is that a hard link is a specific location of physical data, whereas a symbolic link is an abstract location of another file. Hard links cannot link directories and nor can they cross system boundaries; symbolic links can do both of these. 
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: Links and File Content
 * The general syntax for links is: `ln [option] source destination` .This most common option is `-s`, to create a symbolic link. The source is the original file. The destination is the link.
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: Links and File Content cont...
 * With a hard link: File1 -> Data1 and File2 -> Data1 . With a symbolic link: File2 -> File1 -> Data1
 * A file consists of a filename and an inode reference. The reference maps to the actual inode. The inode contains the permissions, and data address. More than one filename can have the same inode reference
-* Links are particularly useful if you want to share a file with another user, such as working on a collaborative paper (ensure that read/write access is granted). 
+* Links are particularly useful if you want to share a file with another user. 
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: File Manipulation Commands
@@ -227,6 +241,9 @@
 <section data-markdown><script type="text/template">
 ### Part 1: System Information Commands
 * The du "disk usage' command has the standard syntax of `du [options] [file]`. Without arguments `du` will print all files, entering directories recursively, with output in kilobytes. Most commonly experessed as `du -sh` (disk usage, summary form, human readable)
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 1: System Information Commands
 *  The following is a handy use of xargs is to parse a directory list and output the results to a file. The command script below runs a disk usage in summary, sorts in order of size and exports to the file diskuse.txt. The "\n" is to ignore spaces in filenames.
 `du -sk * | sort -nr | cut -f2 | xargs -d "\n" du -sh  > diskuse.txt`
 </script></section>
@@ -234,18 +251,20 @@
 ### Part 1: System Information Commands cont...
 * The command 'df' will generate a report of file system disk space usage.
 * The command `free -h` provides total, used, and free memory on a system.
-* A typical command to access system information is `uname`, with the simple syntax `uname [options]`. The most common command is uname -a (all) which provides, in order, kernel name, network node name, kernel release and version, machine hardware name, processor and hardware platform (if known), and operating system. 
+* A typical command to access system information is `uname`, with the simple syntax `uname [options]`. The most common command is uname -a (all) which provides, kernel name, network node name, kernel release and version, machine hardware name, processor and hardware platform, and operating system. 
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 1: System Information Commands cont...
-* Another useful source for system information is the /proc directory. The directory doesn't actually contain 'real' files but runtime system information. Examples: `less /proc/cpuinfo`, `less /proc/filesystems`, `less /proc/uptime`, `less /proc/meminfo`, `less /proc/mounts`, `less /proc/partitions`
+* Another useful source for system information is the /proc directory. The directory doesn't actually contain 'real' files but runtime system information. Examples: `less /proc/cpuinfo`, `less /proc/filesystems`, etc
 * The command lscpu will provide information about the processor architecture as well gathered from /proc/cpuinfo including the number of CPUs, threads, cores, and sockets. 
 </script></section>
 <section data-markdown><script type="text/template">
 ### Part 2: Regular Expressions and Metacharacters
 * The main text searching, substitution, and reporting tools are grep, sed (stream editor), and awk (programming language) respectively.
-* Regular expressions have meta-characters, some of which are described below.
-
+* Regular expressions have meta-characters, some of which are described as follows:
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 2: Regular Expressions and Metacharacters
 | Metacharacter | Explanation         | Example                                          |
 |:--------------|:-------------------|:-----------------------------------------------|
 | ^             | Beginning of string anchor   | `grep '^row' /usr/share/dict/words`       |
@@ -257,31 +276,44 @@
 |---------------|--------------------|-----------|
 | .             | Any single character       | `grep '^...row...$' /usr/share/dict/words` |
 | *             | Match zero plus preceding characters | `grep '^...row.*' /usr/share/dict/words`   |
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 2: Regular Expressions and Metacharacters 
+
+| Metacharacter | Explanation        | Example   |
+|---------------|--------------------|-----------|
 | [ ]           | Matches one in the set        | `grep '^[Pp]' /usr/share/dict/words`    |
 </script></section>
 <section data-markdown><script type="text/template">
-### Part 2: Regular Expressions and Metacharacters cont..
+### Part 2: Regular Expressions and Metacharacters
 | Metacharacter | Explanation        | Example   |
 |---------------|--------------------|-----------|
 | [x-y]		| Matches on in the range                | `grep '^[s-u].row..$' /usr/share/dict/words`   |
 | [^ ]          | Matches one character not in the set   |  `grep '^[^a].row..$' /usr/share/dict/words`   |
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 2: Regular Expressions and Metacharacters
 | &#124;     | Logical OR   |  `grep '^[^a &#124; P].row..$' /usr/share/dict/words`   |
 </script></section>
 <section data-markdown><script type="text/template">
-### Part 2: Regular Expressions and Metacharacters cont..
+### Part 2: Regular Expressions and Metacharacters
 | Metacharacter | Explanation        | Example   |
 |---------------|--------------------|-----------|
 | [^x-y]        | Matches any character not in the range | `grep '^[^a-z].row..$' /usr/share/dict/words` |
 | \             | Escape a metacharacter |  `grep '^A\.$' /usr/share/dict/words`
 </script></section>
 <section data-markdown><script type="text/template">
-### Part 2: Regular Expressions and Metacharacters cont...
+### Part 2: Regular Expressions and Metacharacters
 * The 'matches one in the set' metacharacter has a number of options that one may find useful.
 
 | Metacharacter| Explanation                                             |
 |--------------|---------------------------------------------------------|
 | [:digit:]    | Only the digits 0 to 9                                  |
 | [:alnum:]    | Any alphanumeric character 0 to 9 OR A to Z or a to z.  | 
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 2: Regular Expressions and Metacharacters
+
 | [:alpha:]    | Any alpha character A to Z or a to z.                   |
 | [:blank:]    | Space and TAB characters only.                          |
 </script></section>
@@ -296,10 +328,13 @@
 ### Part 2:  Text Manipulation with sed
 * Sed makes text transformation on an input stream (e.g., file) and has the general form of `sed [OPTION] [SCRIPT] [INPUT]`. Some common options are `e` (multiple scripts per command), `-f` (add script file) and `-i` (in-place editing).
 * The general form of a script is `Command/RegExp/Replacement/Flags`. The most common command is `s` for `substitute`, and the most common flags are `g` (global) or a number for replacement thoughout each line and `I` to ignore case. 
+</script></section>
+<section data-markdown><script type="text/template">
+### Part 2:  Text Manipulation with sed
 * Sed has alternative three alternative delimiters in its scripts; '/', ':', or '|'
 </script></section>
 <section data-markdown><script type="text/template">
-### Part 2: Text Manipulation with sed cont...
+### Part 2: Text Manipulation with sed
 | Command                | Explanation                                                              |
 |------------------------|:-------------------------------------------------------------------------|
 | `sed 's/^/     /'`       | Insert five whitespaces at the beginning of every line.                  | 
@@ -307,14 +342,14 @@
 | `sed '/baz/!s/foo/bar/g'`| Substitute "foo" with "bar" except for lines which contain "baz" |
 </script></section>
 <section data-markdown><script type="text/template">
-### Part 2: Text Manipulation with sed cont...
+### Part 2: Text Manipulation with sed
 | Command                | Explanation                                                              |
 |------------------------|:-------------------------------------------------------------------------|
 | `sed /^$/d`    | Delete all blank lines.                                                    |
 | `sed s/ *$//` | Delete all spaces at the end of every line.             |
 </script></section>
 <section data-markdown><script type="text/template">
-###  Part 2: Text Manipulation with sed cont...
+###  Part 2: Text Manipulation with sed
 | Command               | Explanation                             |
 |-----------------------|----------------------------------------|
 | `sed -i 's/$/\r/g'`     | *nix to MS-Windows, adds CR.            | 
@@ -338,14 +373,14 @@ http://sed.sourceforge.net/sed1line.txt
 * Other commands can be piped through awk: `awk -F"," '{print $1 " : " $3 | "sort"}' quakes.csv | less`
 </script></section>
 <section data-markdown><script type="text/template">
-### Part 2: Report Presentation with awk cont...
+### Part 2: Report Presentation with awk
 * 'NR' specified the row number. More examples:
 `awk -F"," 'END {print NR}' quakes.csv`    
 `awk -F"," 'NR>1{print $3 "," $2 "," $1}' quakes.csv`   
 `awk -F"," '(NR <2) || (NR!=6) && (NR<9)' quakes.csv > selection.txt`   
 </script></section>
 <section data-markdown><script type="text/template">
-### Part 2: Report Presentation with awk cont...
+### Part 2: Report Presentation with awk
 * Other useful awk one-liners make use of the arithmetic functions of this programming language:
 * Print the total number of fields in $file.    
 `awk '{totalf = totalf + NF }; END {print totalf}' $file`
