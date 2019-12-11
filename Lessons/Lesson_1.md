@@ -197,6 +197,10 @@
 ### Part 1: File Manipulation Commands cont...
 * The `sort` command will organise a text file into an order specified by options. The general syntax is `sort [option] [input file] -o [filename]`.
 * Some of the options include -b (ignore beginning spaces), -d (use dictionary order, ignore punctuation), -m (merge two input files into one sorted output, and -r (sort in reverse order). 
+-- *Slide End* --
+
+-- *Slide* --
+### Part 1: File Manipulation Commands cont...
 * An interesting option for sort is for natural language ordering (e.g., 1, 10, 2, 20); for this case use `sort -g` filename (generic) or `-V` (version number).
 * The `sort` command also has a very useful option for sorting by columns. Delimiters can be established with the -t option (e.g., `-t,` for comma separated values) and fields with the the `-k` option (e.g., sort by the second field in numeric order in a comma separated file would be sort -t, -nk2 fiename.csv)
 -- *Slide End* --
@@ -233,8 +237,8 @@
 
 | Metacharacter | Explanation         | Example                                          |
 |:--------------|:-------------------|:-----------------------------------------------|
-| ^             | Beginning of line anchor   | `grep '^row' /usr/share/dict/words`       |
-| $             | End of line anchor         | `grep 'row$' /usr/share/dict/words`       |
+| ^             | Beginning of string anchor   | `grep '^row' /usr/share/dict/words`       |
+| $             | End of string anchor         | `grep 'row$' /usr/share/dict/words`       |
 -- *Slide End* --
 
 -- *Slide* --
@@ -298,6 +302,12 @@
 | `sed 's/^/     /'`       | Insert five whitespaces at the beginning of every line.                  | 
 | `sed '/baz/s/foo/bar/g'` |  Substitute all instances of 'foo' with 'bar' on lines that start with 'baz' |
 | `sed '/baz/!s/foo/bar/g'`| Substitute "foo" with "bar" except for lines which contain "baz" |
+-- *Slide End* --
+
+-- *Slide* --
+### Part 2: Text Manipulation with sed cont...
+| Command                | Explanation                                                              |
+|------------------------|:-------------------------------------------------------------------------|
 | `sed /^$/d`    | Delete all blank lines.                                                    |
 | `sed s/ *$//` | Delete all spaces at the end of every line.             |
 -- *Slide End* --
@@ -393,6 +403,12 @@ http://sed.sourceforge.net/sed1line.txt
 | ..          | One level up in the file system hierarchy.                                      | 
 | TAB         | Autocompletion suggestions.                                                     | 
 | !!          | Repeat last typed command; can be combined with other commands.                 | 
+-- *Slide End* --
+
+-- *Slide* --
+### Part 3: Bash Shell Shortcuts
+| Value       | Explanation                                                                     |
+|-------------|:--------------------------------------------------------------------------------|
 | !ec	      | Repeat last typed command that started with 'ec'                                |
 | &&          | Combine commands if the first succeeds (e.g., make && make install)                     | 
 | &#124;&#124; | Alternative command if the first fails (e.g., make makefile1 &#124;&#124; make Makefile)  | 

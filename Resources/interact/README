@@ -1,1 +1,0 @@
-sinteractive --nodes=1 --ntasks-per-node=2 --time=0:10:0
