@@ -18,7 +18,6 @@ Or:
 
 `git submodule update`   
 
-
 To regenerate the slides
 
 The SlideExtractor.jar in the root directory will re-create the slides if needed.
@@ -48,4 +47,3 @@ The directories that make up this project are as follows:
 * Lessons - The lesson(s);
 * Planning - The plan used to create the course;
 * Resources - Resources for this particular run of the training.
-
