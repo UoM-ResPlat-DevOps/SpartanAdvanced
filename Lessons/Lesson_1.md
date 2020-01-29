@@ -455,8 +455,9 @@ http://sed.sourceforge.net/sed1line.txt
 ### Part 3: Bash Shell Shortcuts
 | Value       | Explanation                                                                     |
 |-------------|:--------------------------------------------------------------------------------|
+| !n	      | Repeat command where 'n' is history ID						|
 | !ec	      | Repeat last typed command that started with 'ec'                                |
-| &&          | Combine commands if the first succeeds (e.g., make && make install)                     | 
+| &&          | Combine commands if the first succeeds (e.g., make && make install)             | 
 | &#124;&#124; | Alternative command if the first fails (e.g., make makefile1 &#124;&#124; make Makefile)  | 
 -- *Slide End* --
 
