@@ -5,7 +5,7 @@
 # Firstname and Surname are first two parameters.
 
 Hello () {
-   echo "Hello World $Firstname $Surname"
+   echo "Hello World $1 $2"
    return $(bc -l <<< ${#1}+${#2})
 }
 

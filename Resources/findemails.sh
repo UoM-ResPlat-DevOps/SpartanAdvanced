@@ -1,5 +1,14 @@
 #!/bin/bash
-# Search for email addresses in file, extract, turn into csv with designated file name
+
+# Usage
+usage()
+{
+ echo "$(basename $0): Description of script"
+ echo ""
+ echo "This searches for email addresses in file, extract, turn into csv with designated file name"
+ echo "Run the script with the file to be searched and the name of the output file"
+ echo "For example: ./findemails.sh hidden.txt foundthem.csv"
+}
 
 # Constants
 INPUT=${1}
@@ -39,6 +48,7 @@ sort | uniq
 } 
 
 main() {
+	usage
 	filecheck
 	searchsort
 	viewprint
