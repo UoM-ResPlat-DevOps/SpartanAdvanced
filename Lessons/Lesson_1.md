@@ -9,8 +9,14 @@
 
 -- *Slide* --
 ### Part 0: Slide Repository
-* Terminal projection via https://shellshare.net/r/Spartan
 * A copy of the slides and sample code is available at: `https://github.com/UoM-ResPlat-DevOps/SpartanAdvanced`
+* The introductory course teaches you the shell environment and HPC job submission. This course introduces you to how to process faster.
+-- *Slide End* --
+
+-- *Slide* --
+### Part 0: Examples
+* Command-line Tools can be 235x Faster than your Hadoop Cluster (https://adamdrake.com/command-line-tools-can-be-235x-faster-than-your-hadoop-cluster.html)
+* SQL query runtime from 380 hours to 12 with two Unix commands (https://www.spinellis.gr/blog/20180805/)
 -- *Slide End* --
 
 -- *Slide* --
