@@ -299,7 +299,9 @@
 
 -- *Slide* --
 ### Part 2: Regular Expressions and Metacharacters
-| &#124;     | Logical OR   |  `grep '^[^a &#124; P].row..$' /usr/share/dict/words`   |
+| Metacharacter | Explanation        | Example   |
+|---------------|--------------------|-----------|
+| &#124;     	| Logical OR   	     |  `grep '^[^a &#124; P].row..$' /usr/share/dict/words`   |
 -- *Slide End* --
 
 -- *Slide* --
@@ -322,7 +324,8 @@
 
 -- *Slide* --
 ### Part 2: Regular Expressions and Metacharacters
-
+| Metacharacter| Explanation                                             |
+|--------------|---------------------------------------------------------|
 | [:alpha:]    | Any alpha character A to Z or a to z.                   |
 | [:blank:]    | Space and TAB characters only.                          |
 -- *Slide End* --
@@ -382,6 +385,10 @@ http://sed.sourceforge.net/sed1line.txt
 -- *Slide* --
 ###  Part 2: Report Presentation with awk
 * Awk is a data driven programming language, its name derived from the surname initial of the designers (Alfred Aho, Peter Weinberger, and Brian Kernighan). Awk is particularly good at understanding and manipulating text structured by fields - such as tables of rows and columns. 
+-- *Slide End* --
+
+-- *Slide* --
+###  Part 2: Report Presentation with awk
 * The essential organization of an AWK program follows the form: pattern { action }. This is sometimes structured with BEGIN and END which specify actions to be taken before any lines are read, and after the last line is read. With it's structured data features, awk can print columns by number ($0 equals everything).
 -- *Slide End* --
 
@@ -407,6 +414,10 @@ http://sed.sourceforge.net/sed1line.txt
 `awk '{totalf = totalf + NF }; END {print totalf}' $file`
 * Print the sum of the fields (columns) of every line (row); NF is number of field.    
 `awk '{sum=0; for (i=1; i<=NF; i++) sum=sum+$i; print sum}' $file`	
+-- *Slide End* --
+
+-- *Slide* --
+### Part 2: Report Presentation with awk
 * A popular list of one-line awk commands can be found at the following URL   
 `http://www.pement.org/awk/awk1line.txt`
 -- *Slide End* --
@@ -475,6 +486,12 @@ http://sed.sourceforge.net/sed1line.txt
 | ctrl+u      | Delete everything from cursor to beginning of the line                          | 
 | alt+f       | Go forward to the end of the previous word                                      | 
 | alt+b       | Move cursor back to the beginning of the previous word                          | 
+-- *Slide End* --
+
+-- *Slide* --
+### Part 3: Bash Shell Shortcuts cont...
+| Value       | Explanation                                                                     |
+|-------------|:--------------------------------------------------------------------------------|
 | ctrl+d      | Quick logout.                                                                   | 
 | ctrl+r      | Recursive search through your history to locate previous commands.              | 
 | ctrl+z      | Stop the current process.                                                       |
@@ -498,6 +515,10 @@ http://sed.sourceforge.net/sed1line.txt
 * There are also a number of special characters in bash scripting. 
 * Quoting disables these characters for the content within the quotes. Both single and double quotes can be used, and single quotes can be used to incorporate double quotes. 
 * "Backtick" quotation marks can be used for command substitution within the script, but they are not POSIX standard. 
+-- *Slide End* --
+
+-- *Slide* --
+### Part 3: Special Characters
 * Examples: 
 `echo 'The "Sedimentary" and the "Igenuous" argue about metamorphism'`   
 `echo "There are $(ls | wc -l) files in $(pwd)"`
@@ -524,6 +545,10 @@ http://sed.sourceforge.net/sed1line.txt
 -- *Slide* --
 ### Part 3: Scripts with Conditionals
 * A set of conditions can be expressed through an if/then/fi structure. A single test with an alternative set of commands is expressed if/then/else/fi. Finally, a switch-like structure can be constructed through a series of elif statements in a if/then/elif/elif/.../else/fi structure. i.e.,
+-- *Slide End* --
+
+-- *Slide* --
+### Part 3: Scripts with Conditionals
 1. if..then..fi statement (Simple) 
 2. if..then..else..fi statement (Optional) 
 3. if..elif..else..fi statement (Ladder) 
@@ -540,13 +565,13 @@ http://sed.sourceforge.net/sed1line.txt
 | [ -e filepath ]                 | Returns true if file exists.                                 |
 | [$var lt value ] [ gt ] [ eq ]  | Returns true if less than, greater than or equal             |
 | [ -f filepath ]                 | Returns true if filepath is actually a file.                 |
-| [ -x filepath ]                 | Returns true if file exists and executable.                  |
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 3: Scripts with Conditionals cont...
 | Value                           |Explanation                                                   |
 |---------------------------------|-------------------------------------------------------------|
+| [ -x filepath ]                 | Returns true if file exists and executable.                  |
 | [ -S filepath ]                 | Returns true if file exists and its a socket file.           |
 | [ expr1 -a expr2 ]              | Returns true if both the expression is true.                 |
 | [ expr1 -o expr2 ]              | Returns true if either of the expression1 or 2 is true.      | 
@@ -555,6 +580,10 @@ http://sed.sourceforge.net/sed1line.txt
 -- *Slide* --
 ### Part 3: Scripts with Conditionals cont...
 * Conditionals can also be interrupted and resumed using the 'break' and 'continue' statements. The break command terminates the loop (breaks out of it), while continue causes a jump to the next iteration (repetition) of the loop, skipping all the remaining commands in that particular loop cycle. Examples at: `/usr/local/common/HPCshells/break.sh` and `/usr/local/common/HPCshells/continue.sh`
+-- *Slide End* --
+
+-- *Slide* --
+### Part 3: Scripts with Conditionals cont...
 * A variant on the conditional to escape the problems associated with deeply nested if-then-else statements is the `case` statement. The first match executes the listed commands. Examples at: `/usr/local/common/HPCshells/case.sh`
 -- *Slide End* --
 
@@ -581,6 +610,10 @@ http://sed.sourceforge.net/sed1line.txt
 ### Part 3: Metacharacters
 * Metacharacters have meaning beyond their literal meaning. Powerful, but use with caution (e.g., wildcards). Metacharacter meaning depends very much on the context, which can cause problems. For example;
 * the semi-colon can be a command separator in a script or a double as a terminator in a case statement. 
+-- *Slide End* --
+
+-- *Slide* --
+### Part 3: Metacharacters
 * the colon represents a null command in a script, or as a field separator (e.g., in `/etc/passwd`).
 * the dot (.) is used to source a filename, to represent the current working directory as a path, to represent a character in regular expression, or in multiple form as a sequence.
 -- *Slide End* --
@@ -608,7 +641,6 @@ http://sed.sourceforge.net/sed1line.txt
 `eval 'for i in {1..100}; do sleep 2; echo "Igneous" >> rocks.txt ; done' &`    
 `eval 'for i in {1..100}; do sleep 2; echo "Sedimentary" >> rocks.txt ; done'`    
 `eval 'for i in {1..100}; do sleep 2; echo "Metamorphic" >> rocks.txt ; done' &`    
-* It is important not to run large scripts on the login node. Set up a job on a compute node with `sinteractive`.
 -- *Slide End* --
 
 -- *Slide* --
@@ -619,12 +651,21 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 4: Automatic Script Generation
-* A heredoc (also known as a here-string or here-document) is a file or input literal, a section of source code that is treated as a separate file with specified delimiters. In various Unix shells the '<<' with a delimiter name will treat subsequent code until the identifier as reached as a separate file. With the addition of a minus sign, leading tabs are ignored which aid formatting. 
+* A heredoc (also known as a here-string or here-document) is a file or input literal, a section of source code that is treated as a separate file with specified delimiters. 
 -- *Slide End* --
 
 -- *Slide* --
-### Part 4: Automatic Script Generation cont...
+### Part 4: Automatic Script Generation
+* In various Unix shells the '<<' with a delimiter name will treat subsequent code until the identifier as reached as a separate file. With the addition of a minus sign, leading tabs are ignored which aid formatting. 
+-- *Slide End* --
+
+-- *Slide* --
+### Part 4: Automatic Script Generation
 * For example, the command `tr a-z A-Z << END_TEXT` will conduct a translate on all data until a END_TEXT is reached in the doc for or `tr a-z A-Z <<< 'igneous sedimentary metamorphic'` in the string form. Variables can also be parsed. e.g.., `rocks='igneous sedimentary metamorphic'`, `tr a-z A-Z <<< $rocks`. 
+-- *Slide End* --
+
+-- *Slide* --
+### Part 4: Automatic Script Generation
 * Heredocs can also be used however to create Slurm scripts. A loop can be used to create multiple jobs for submission. See `/usr/local/common/HPCshells/heres/herescript.sh`. See also `/usr/local/common/Gaussian`
 -- *Slide End* --
 
