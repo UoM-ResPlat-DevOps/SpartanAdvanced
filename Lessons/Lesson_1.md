@@ -438,7 +438,7 @@ http://sed.sourceforge.net/sed1line.txt
 -- *Slide* --
 ### Part 3: Example extended .bash_profile
 * A sample extended `.bash_profile` is available from the directory `/usr/local/common/HPCshells`
-* Includes alias, history size modifications etc.
+* Includes alias, history size modifications, functions etc.
 -- *Slide End* --
 
 -- *Slide* --
