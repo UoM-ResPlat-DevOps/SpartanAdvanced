@@ -21,7 +21,7 @@
 
 -- *Slide* --
 ### Part 1:  Archiving and Compressing Files
-* Copy the file from `/usr/local/common/HPCshells/class.tar.gz` to the home directory.
+* Copy the file from `/usr/local/common/AdvLinux/class.tar.gz` to the home directory.
 * The double-barelled suffix, .tar.gz indicates that it is an archive ("tape archive"!) and compressed (with the gzip application). Such a file (often appearing as *.tgz) is often referred to as a "tarball".
 * The type of a file can often be determined by the file command: `file class.tar.gz`
 -- *Slide End* --
@@ -437,7 +437,7 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 3: Example extended .bash_profile
-* A sample extended `.bash_profile` is available from the directory `/usr/local/common/HPCshells`
+* A sample extended `.bash_profile` is available from the directory `/usr/local/common/AdvLinuxshells`
 * Includes alias, history size modifications, functions etc.
 -- *Slide End* --
 
@@ -505,8 +505,8 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 3: Scripts with Variables
-*  The most basic form of scripting simply follows commands in sequence, such as this rather undeveloped backup script, which runs tar and gzip on the home directory. A version of this is available at: `/usr/local/common/HPCshells/backup1.sh`
-* Not much of a script! Consider what parts can be made into variables. `/usr/local/common/HPCshells/backup2.sh`
+*  The most basic form of scripting simply follows commands in sequence, such as this rather undeveloped backup script, which runs tar and gzip on the home directory. A version of this is available at: `/usr/local/common/AdvLinux/backup1.sh`
+* Not much of a script! Consider what parts can be made into variables. `/usr/local/common/AdvLinux/backup2.sh`
 * A variable is prefaced by a dollar sign ($) to refer to its value. 
 -- *Slide End* --
 
@@ -534,8 +534,8 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 3: Scripts with Loops cont...
-* Examples of these scripts are in  `/usr/local/common/HPCshells/loops.txt`
-* These can be converted to permanent scripts e.g., `/usr/local/common/HPCshells/lowercaserename.sh` and `/usr/local/common/HPCshells/sshtrigger.sh`
+* Examples of these scripts are in  `/usr/local/common/AdvLinux/loops.txt`
+* These can be converted to permanent scripts e.g., `/usr/local/common/AdvLinux/lowercaserename.sh` and `/usr/local/common/AdvLinux/sshtrigger.sh`
 -- *Slide End* --
 
 -- *Slide* --
@@ -553,7 +553,7 @@ http://sed.sourceforge.net/sed1line.txt
 2. if..then..else..fi statement (Optional) 
 3. if..elif..else..fi statement (Ladder) 
 4. if..then..else..if..then..fi..fi..(Nested) 
-* An example is available at: `/usr/local/common/HPCshells/filetest.sh`
+* An example is available at: `/usr/local/common/AdvLinux/filetest.sh`
 -- *Slide End* --
 
 -- *Slide* --
@@ -579,24 +579,24 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 3: Scripts with Conditionals cont...
-* Conditionals can also be interrupted and resumed using the 'break' and 'continue' statements. The break command terminates the loop (breaks out of it), while continue causes a jump to the next iteration (repetition) of the loop, skipping all the remaining commands in that particular loop cycle. Examples at: `/usr/local/common/HPCshells/break.sh` and `/usr/local/common/HPCshells/continue.sh`
+* Conditionals can also be interrupted and resumed using the 'break' and 'continue' statements. The break command terminates the loop (breaks out of it), while continue causes a jump to the next iteration (repetition) of the loop, skipping all the remaining commands in that particular loop cycle. Examples at: `/usr/local/common/AdvLinux/break.sh` and `/usr/local/common/AdvLinux/continue.sh`
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 3: Scripts with Conditionals cont...
-* A variant on the conditional to escape the problems associated with deeply nested if-then-else statements is the `case` statement. The first match executes the listed commands. Examples at: `/usr/local/common/HPCshells/case.sh`
+* A variant on the conditional to escape the problems associated with deeply nested if-then-else statements is the `case` statement. The first match executes the listed commands. Examples at: `/usr/local/common/AdvLinux/case.sh`
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 3: Script Selects and Functions
-* The select command with conditionals can be used to create simple menus for users which prompts them for their input. There is an example at: `/usr/local/common/HPCshells/select.sh`
-* Functions subroutines or subscripts within a shell script, which can have local variables, accept, and return parameters. Functions may not be empty. See the example at: `/usr/local/common/HPCshells/hellofunction.sh`
+* The select command with conditionals can be used to create simple menus for users which prompts them for their input. There is an example at: `/usr/local/common/AdvLinux/select.sh`
+* Functions subroutines or subscripts within a shell script, which can have local variables, accept, and return parameters. Functions may not be empty. See the example at: `/usr/local/common/AdvLinux/hellofunction.sh`
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 3: Scripting Conventions
 * There are several scripting conventions which make the code more effective, more robust, more portable, and more readable. Therefore use them!
-* The following example at: `/usr/local/common/HPCshells/findemails.sh` and the datafile `/usr/local/common/HPCshells/hidden.txt` will illustrate some of these conventions.
+* The following example at: `/usr/local/common/AdvLinux/findemails.sh` and the datafile `/usr/local/common/AdvLinux/hidden.txt` will illustrate some of these conventions.
 -- *Slide End* --
 
 -- *Slide* --
@@ -620,7 +620,7 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 3: Metacharacters cont ..
-* Single quotes however will interpret anything literally between the quotes as a string with no interpretation to a meta-character (aka 'strong quoting'). Double quotes will substitute a limited set which are usually the symbols which are wanted in their interpreted mode. e.g., variables, backticks, and sometimes backslash escapes. (aka "weak quoting"). n example is given at `/usr/local/common/HPCshells/quotes.sh`
+* Single quotes however will interpret anything literally between the quotes as a string with no interpretation to a meta-character (aka 'strong quoting'). Double quotes will substitute a limited set which are usually the symbols which are wanted in their interpreted mode. e.g., variables, backticks, and sometimes backslash escapes. (aka "weak quoting"). n example is given at `/usr/local/common/AdvLinux/quotes.sh`
 -- *Slide End* --
 
 -- *Slide* --
@@ -646,7 +646,7 @@ http://sed.sourceforge.net/sed1line.txt
 -- *Slide* --
 ### Part 4: Shell Scripting Example with PBS and Slurm
 * Because SLURM calls a shell when launched any shell commands can can also be used in a Slurm script. 
-* As an example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other Slurm job. The jobscript and data files are at: `/usr/local/common/HPCshells/NAMD/drugdock.Slurm`
+* As an example, an MD Drug Docking experiment, MD3 -  Aspirin to A2 phospholipase, includes a range of Linux commands and shell script structures. This includes variable assignment, redirections, and loops. This job can be copied to a local directory and lauched like any other Slurm job. The jobscript and data files are at: `/usr/local/common/AdvLinux/NAMD/drugdock.Slurm`
 -- *Slide End* --
 
 -- *Slide* --
@@ -666,7 +666,7 @@ http://sed.sourceforge.net/sed1line.txt
 
 -- *Slide* --
 ### Part 4: Automatic Script Generation
-* Heredocs can also be used however to create Slurm scripts. A loop can be used to create multiple jobs for submission. See `/usr/local/common/HPCshells/heres/herescript.sh`. See also `/usr/local/common/Gaussian`
+* Heredocs can also be used however to create Slurm scripts. A loop can be used to create multiple jobs for submission. See `/usr/local/common/AdvLinux/heres/herescript.sh`. See also `/usr/local/common/Gaussian`
 -- *Slide End* --
 
 -- *Slide* --
