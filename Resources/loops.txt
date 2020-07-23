@@ -6,6 +6,10 @@ for file in ./*.mp3 ; do ffmpeg -i "${file}" "${file/%mp3/ogg}" ; done
 for item in ./*.jpeg ; do convert "$item" "${item%.*}.png" ; done
 for item in ./*; do convert "$item" -define jpeg:extent=512kb "${item%.*}.jpg" ; done
 
+# How about job submission?
+
+for item in ./*.slurm; do sbatch $item; done
+
 # Loops can be applied in a step-wise manner.
 
 $ cd ~/Genomics/shell_data
@@ -64,4 +68,4 @@ ${var}bar	# Invoke the variable, append "bar".
 
 # Example of determining jobs running on a set of nodes.
 
-for host in "spartan-rc"{001..10}; do squeue -w $host; done
+for host in "spartan-bm"{001..10}; do squeue -w $host; done

@@ -58,9 +58,8 @@
 
 -- *Slide* --
 ### Part 1: Viewing tarballs
-* Some commands allow reading tarballs without extraction. 
-`zcat class.tgz | less` or `zless class.tgz` or `bzless` or `xzless`
-`zgrep '#include <mpi.h>' class.tgz| less` or `bzgrep` or `xzgrep`
+* Some commands allow reading tarballs without extraction. e.g., `zcat class.tgz` or `zless class.tgz` or `bzless` or `xzless`
+`zgrep 'mpi.h' class.tgz` or `bzgrep` or `xzgrep`
 -- *Slide End* --
 
 -- *Slide* --
@@ -72,12 +71,12 @@
 
 -- *Slide* --
 ### Part 1: Redirections and Tee
-* Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R (/home/lev/data/) <(ls -R /home/lev/workdata/)`
+* Process streams as well as data streams can be redirected: `diff <(ssh user@spartan.hpc.unimelb.edu.au ls -R (~/Desktop/data/) <(ls -R /home/lev/data/)`
 -- *Slide End* --
 
 -- *Slide* --
 ### Part 1: Redirections and Tee cont..
-* Redirections can be further modified by placing a file descriptor (fd) next immediately before the redirector. These fd numbers are 0 (standard input), 1 (standard output), 2 (standard error). e.g., `ls -d /home/username/seismic 2> error.txt`
+* Redirections can be further modified by placing a file descriptor (fd) next immediately before the redirector. These fd numbers are 0 (standard input), 1 (standard output), 2 (standard error). e.g., `ls -d seismic 2> error.txt`
 * Standard error can also to be redirected to the same destination that standard output is directed to using 2>&1; it merges stderr (2) into stdout (1).
 -- *Slide End* --
 
@@ -137,7 +136,7 @@
 
 -- *Slide* --
 ### Part 1: File Attributes, Types, Ownership cont
-* The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : chmod [option] [symbolic | octal] file. For options, the most common is `-R` which changes files and directories recursively.
+* The change permissions of a file use the `chmod` command. To chmod a file you have to own it. The command is : `chmod [option] [symbolic | octal] file`. For options, the most common is `-R` which changes files and directories recursively.
 -- *Slide End* --
 
 -- *Slide* --
@@ -242,8 +241,8 @@
 
 -- *Slide* --
 ### Part 1: System Information Commands
-*  The following is a handy use of xargs is to parse a directory list and output the results to a file. The command script below runs a disk usage in summary, sorts in order of size and exports to the file diskuse.txt. The "\n" is to ignore spaces in filenames.
-`du -sk * | sort -nr | cut -f2 | xargs -d "\n" du -sh  > diskuse.txt`
+*  The following is a handy use of xargs is to parse a directory list and output the results to a file. The command script below runs a disk usage in summary for all files, sorts in order of size and exports to the file diskuse.txt. The "\n" is to ignore spaces in filenames.
+`du -sk $(ls -A) | sort -nr | cut -f2 | xargs -d "\n" du -sh $(ls -A) > diskuse.txt`
 -- *Slide End* --
 
 -- *Slide* -- 
@@ -639,7 +638,7 @@ http://sed.sourceforge.net/sed1line.txt
 ### Part 3: Script  Commands cont...
 * For example;
 `eval 'for i in {1..100}; do sleep 2; echo "Igneous" >> rocks.txt ; done' &`    
-`eval 'for i in {1..100}; do sleep 2; echo "Sedimentary" >> rocks.txt ; done'`    
+`eval 'for i in {1..100}; do sleep 2; echo "Sedimentary" >> rocks.txt ; done' &`    
 `eval 'for i in {1..100}; do sleep 2; echo "Metamorphic" >> rocks.txt ; done' &`    
 -- *Slide End* --
 

@@ -2,8 +2,8 @@
 ## Slurm launching script                                     July 2016 
 ## -to run multiple sequential namd jobs after an initial minimization step 	
 ## 
+## Updated 202007 for new build and partition system LL
 
-#SBATCH -p physical
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=8
 #SBATCH -o slurm.%N.%j.out # STDOUT 
@@ -18,18 +18,21 @@ date=$(date +%F);
 date2=$(date +%F-%H.%M);
 
 set CONV_RSH = ssh
-#qstat -f $PBS_JOBID >JobLog/$date2$jobname.qstat.txt;
 
-module load NAMD 
+module purge
+module load spartan_2019
+module load foss/2019b
+module load namd/2.13-mpi
 
 ### --------------------------------------------------------------------------
 ## optimize the original molecule
-srun namd2  aspirin_opt_short.conf >OutputText/opt.$jobname.$date2.out 2>Errors/opt.$jobname.$date2.err;
-#mpiexec namd2  aspirin_opt_short.conf >OutputText/opt.$jobname.$date2.out 2>Errors/opt.$jobname.$date2.err;
 
+srun namd2  aspirin_opt_short.conf >OutputText/opt.$jobname.$date2.out 2>Errors/opt.$jobname.$date2.err;
 mv *.dcd OutputFiles/
 cp *.coor *.vel *.xsc *.xst RestartFiles/
-## mv generic_optimmization output to generic_restart files: 
+
+## Move generic_optimmization output to generic_restart files: 
+
 mv generic_optimization.restart.coor generic_restartfile.restart.coor
 mv generic_optimization.restart.vel  generic_restartfile.restart.vel
 mv generic_optimization.restart.xsc  generic_restartfile.restart.xsc
@@ -41,9 +44,9 @@ mv generic_optimization.restart.xsc  generic_restartfile.restart.xsc
 for loop in {1..5} 
 do 
 basename="$date2$jobname$loop" 
+
 ## run namd job:
 srun namd2 aspirin_rs_short.conf >OutputText/$basename.out 2>Errors/$basename.err;
-#mpiexec namd2 aspirin_rs_short.conf >OutputText/$basename.out 2>Errors/$basename.err;
 
 ## rename output and move data into folders 
 cp generic_restartfile.dcd   OutputFiles/$basename.dcd;
@@ -59,7 +62,5 @@ done
 ## cleanup
 mv FFTW* OutputText/;
 rm *.BAK *.old *.coor *.vel *.xsc *.xst; 
-mv pbs_*.e* JobLog/;
-mv pbs_*.o* JobLog/;
-
-
+mv *.e* JobLog/;
+mv *.o* JobLog/;
