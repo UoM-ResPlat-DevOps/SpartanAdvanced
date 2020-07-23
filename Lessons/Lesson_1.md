@@ -242,7 +242,7 @@
 -- *Slide* --
 ### Part 1: System Information Commands
 *  The following is a handy use of xargs is to parse a directory list and output the results to a file. The command script below runs a disk usage in summary for all files, sorts in order of size and exports to the file diskuse.txt. The "\n" is to ignore spaces in filenames.
-`du -sk $(ls -A) | sort -nr | cut -f2 | xargs -d "\n" du -sh $(ls -A) > diskuse.txt`
+`du -sk * | sort -nr | cut -f2 | xargs -d "\n" du -sh  > diskuse.txt`
 -- *Slide End* --
 
 -- *Slide* -- 
